@@ -11,7 +11,7 @@ push triggers a production deploy on Vercel.
 ```bash
 pnpm install
 pnpm env:pull        # DATABASE_URL + BLOB_READ_WRITE_TOKEN from Vercel
-pnpm dev             # /admin — harry@umidigital.co.uk / ChangeMe!2026
+pnpm dev             # /admin — harry@umidigital.co.uk
 ```
 
 ## Live infrastructure (already provisioned)
@@ -29,7 +29,12 @@ own origin from `VERCEL_PROJECT_PRODUCTION_URL`. Set it once a custom domain exi
 
 ## Outstanding before launch
 
-1. **Change the admin password** — seeded as `ChangeMe!2026`.
+1. ~~Change the admin password~~ — done; the seeded `ChangeMe!2026` no longer works.
+   To reset it again:
+   `ADMIN_EMAIL=… ADMIN_PASSWORD=… npx tsx scripts/admin/reset-password.ts`.
+   Passwords are a PBKDF2 salt and hash, so this has to go through Payload's local API
+   rather than a direct SQL write. `scripts/admin/verify-login.ts` checks a set of
+   credentials without writing anything, and `list-users.ts` prints the accounts.
 2. **Testimonial permission.** The four reviews are verbatim from Kingson's public review
    profile but seeded `verified: false`: they render on the page and are excluded from
    `Review`/`AggregateRating` structured data. The client's own brief
