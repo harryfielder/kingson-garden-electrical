@@ -1,0 +1,429 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@config '../../../tailwind.config.mjs';
+
+@custom-variant dark (&:is([data-theme='dark'] *));
+@custom-variant sm (@media (width >= theme(--breakpoint-sm)));
+@custom-variant md (@media (width >= theme(--breakpoint-md)));
+@custom-variant lg (@media (width >= theme(--breakpoint-lg)));
+@custom-variant xl (@media (width >= theme(--breakpoint-xl)));
+@custom-variant 2xl (@media (width >= theme(--breakpoint-2xl)));
+
+@plugin "@tailwindcss/typography";
+
+/* ---------------------------------------------------------------------------
+ * Classes composed dynamically (CMS-driven) must be kept in the safelist.
+ * ------------------------------------------------------------------------ */
+@source inline("lg:col-span-{3,4,5,6,7,8,9,12}");
+@source inline("md:col-span-{4,6,8,12}");
+@source inline("border-border");
+@source inline("bg-{card,surface,canvas,ink,brand,accent}");
+@source inline("border-{error,success,warning}");
+@source inline("bg-{error,success,warning}/30");
+
+/* ===========================================================================
+ * DESIGN TOKENS — single source of truth
+ *
+ * Tier 1  Primitive ramps  (--green-*, --brass-*, --stone-*)  raw values
+ * Tier 2  Semantic aliases (--background, --brand, --accent)  intent
+ * Tier 3  Tailwind theme   (@theme inline)                    utilities
+ *
+ * Only ever change Tier 1 + Tier 2. Components consume Tier 3 utilities
+ * (bg-canvas, text-brand, font-display …) and never raw values.
+ * ======================================================================== */
+
+:root {
+  /* -- Tier 1: primitive ramps ------------------------------------------- */
+
+  /* Forest green — the structural colour of the brand */
+  --green-50: oklch(97.2% 0.012 155deg);
+  --green-100: oklch(94% 0.024 155deg);
+  --green-200: oklch(88% 0.04 155deg);
+  --green-300: oklch(79% 0.058 155deg);
+  --green-400: oklch(66% 0.072 155deg);
+  --green-500: oklch(54% 0.075 155deg);
+  --green-600: oklch(44% 0.07 155deg);
+  --green-700: oklch(34% 0.06 155deg);
+  --green-800: oklch(26% 0.045 156deg);
+  --green-900: oklch(20.5% 0.032 157deg);
+  --green-950: oklch(15.5% 0.024 158deg);
+
+  /* Brass — the accent. Warm, metallic, used sparingly for emphasis. */
+  --brass-50: oklch(97.5% 0.018 84deg);
+  --brass-100: oklch(94.5% 0.038 82deg);
+  --brass-200: oklch(89% 0.068 80deg);
+  --brass-300: oklch(83% 0.095 77deg);
+  --brass-400: oklch(76.5% 0.115 74deg);
+  --brass-500: oklch(70% 0.118 70deg);
+  --brass-600: oklch(60% 0.108 66deg);
+  --brass-700: oklch(49% 0.09 62deg);
+  --brass-800: oklch(38% 0.07 60deg);
+  --brass-900: oklch(29% 0.05 58deg);
+
+  /* Stone — warm neutrals. Never pure grey; always a trace of green/ochre. */
+  --stone-50: oklch(98.4% 0.004 90deg);
+  --stone-100: oklch(96.4% 0.006 88deg);
+  --stone-200: oklch(93.2% 0.008 92deg);
+  --stone-300: oklch(88.5% 0.009 95deg);
+  --stone-400: oklch(76% 0.012 100deg);
+  --stone-500: oklch(62% 0.014 120deg);
+  --stone-600: oklch(50% 0.016 140deg);
+  --stone-700: oklch(39% 0.018 150deg);
+  --stone-800: oklch(29% 0.018 152deg);
+  --stone-900: oklch(21% 0.016 155deg);
+
+  /* Status */
+  --success-base: oklch(58% 0.11 150deg);
+  --warning-base: oklch(72% 0.13 78deg);
+  --error-base: oklch(55% 0.19 27deg);
+
+  /* -- Tier 2: semantic aliases (light / "conservatory") ------------------ */
+  --canvas: var(--stone-50);
+  --canvas-subtle: var(--stone-100);
+  --surface: oklch(100% 0 0deg);
+  --surface-raised: oklch(100% 0 0deg);
+  --ink: var(--green-950);
+  --ink-muted: var(--stone-600);
+  --ink-subtle: var(--stone-500);
+  --ink-inverse: var(--stone-50);
+
+  --brand: var(--green-700);
+  --brand-hover: var(--green-800);
+  --brand-soft: var(--green-50);
+  --brand-foreground: var(--stone-50);
+
+  --accent-base: var(--brass-500);
+  --accent-hover: var(--brass-600);
+  --accent-soft: var(--brass-50);
+  --accent-foreground: var(--brass-900);
+
+  --line: var(--stone-300);
+  --line-strong: var(--stone-400);
+  --line-inverse: oklch(100% 0 0deg / 18%);
+
+  --focus-ring: var(--brass-500);
+
+  /* -- shadcn/ui compatibility layer ------------------------------------- *
+   * The template's primitives (button, input, card …) reference these.
+   * Mapping them here keeps one palette across both systems.               */
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --secondary: var(--stone-200);
+  --secondary-foreground: var(--green-900);
+  --muted: var(--stone-100);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--accent-base);
+  --destructive: var(--error-base);
+  --destructive-foreground: var(--stone-50);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--focus-ring);
+  --success: var(--success-base);
+  --warning: var(--warning-base);
+  --error: var(--error-base);
+
+  /* -- Shape ------------------------------------------------------------- */
+  --radius: 0.25rem;
+
+  /* -- Elevation. Warm-tinted, never neutral black. ---------------------- */
+  --shadow-subtle: 0 1px 2px oklch(20.5% 0.032 157deg / 6%);
+  --shadow-raised:
+    0 1px 2px oklch(20.5% 0.032 157deg / 5%), 0 4px 12px oklch(20.5% 0.032 157deg / 6%);
+  --shadow-float:
+    0 2px 4px oklch(20.5% 0.032 157deg / 5%), 0 12px 32px oklch(20.5% 0.032 157deg / 9%);
+  --shadow-overlay: 0 24px 64px oklch(15.5% 0.024 158deg / 18%);
+
+  /* -- Motion ------------------------------------------------------------ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-instant: 100ms;
+  --duration-fast: 180ms;
+  --duration-base: 300ms;
+  --duration-slow: 560ms;
+  --duration-deliberate: 900ms;
+
+  /* -- Rhythm. Fluid so section spacing scales with viewport. ------------ */
+  --space-section: clamp(4rem, 2.25rem + 7vw, 9rem);
+  --space-section-sm: clamp(2.5rem, 1.6rem + 3.6vw, 5rem);
+  --space-section-lg: clamp(5.5rem, 3rem + 10vw, 12rem);
+  --space-gutter: clamp(1.25rem, 0.75rem + 2vw, 2.5rem);
+}
+
+[data-theme='dark'] {
+  /* "Night garden" — pooled warm light against deep planting. */
+  --canvas: var(--green-950);
+  --canvas-subtle: oklch(18.5% 0.026 158deg);
+  --surface: var(--green-900);
+  --surface-raised: oklch(24% 0.036 157deg);
+  --ink: var(--stone-50);
+  --ink-muted: oklch(74% 0.014 120deg);
+  --ink-subtle: oklch(62% 0.016 130deg);
+  --ink-inverse: var(--green-950);
+
+  --brand: var(--green-300);
+  --brand-hover: var(--green-200);
+  --brand-soft: oklch(24% 0.04 156deg);
+  --brand-foreground: var(--green-950);
+
+  --accent-base: var(--brass-400);
+  --accent-hover: var(--brass-300);
+  --accent-soft: oklch(26% 0.05 66deg);
+  --accent-foreground: var(--green-950);
+
+  --line: oklch(100% 0 0deg / 12%);
+  --line-strong: oklch(100% 0 0deg / 22%);
+  --line-inverse: oklch(15.5% 0.024 158deg / 18%);
+
+  --secondary: oklch(26% 0.03 157deg);
+  --secondary-foreground: var(--stone-50);
+  --muted: oklch(24% 0.028 157deg);
+  --destructive: oklch(62% 0.17 27deg);
+
+  --shadow-subtle: 0 1px 2px oklch(0% 0 0deg / 30%);
+  --shadow-raised: 0 1px 2px oklch(0% 0 0deg / 26%), 0 4px 12px oklch(0% 0 0deg / 32%);
+  --shadow-float: 0 2px 4px oklch(0% 0 0deg / 26%), 0 12px 32px oklch(0% 0 0deg / 40%);
+  --shadow-overlay: 0 24px 64px oklch(0% 0 0deg / 55%);
+}
+
+/* ===========================================================================
+ * Tier 3 — expose tokens as Tailwind utilities
+ * ======================================================================== */
+@theme {
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 90rem;
+}
+
+@theme inline {
+  /* Typefaces */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+
+  /* Brand ramps — available as bg-green-700, text-brass-500 … */
+  --color-green-50: var(--green-50);
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: var(--green-800);
+  --color-green-900: var(--green-900);
+  --color-green-950: var(--green-950);
+  --color-brass-50: var(--brass-50);
+  --color-brass-100: var(--brass-100);
+  --color-brass-200: var(--brass-200);
+  --color-brass-300: var(--brass-300);
+  --color-brass-400: var(--brass-400);
+  --color-brass-500: var(--brass-500);
+  --color-brass-600: var(--brass-600);
+  --color-brass-700: var(--brass-700);
+  --color-brass-800: var(--brass-800);
+  --color-brass-900: var(--brass-900);
+  --color-stone-50: var(--stone-50);
+  --color-stone-100: var(--stone-100);
+  --color-stone-200: var(--stone-200);
+  --color-stone-300: var(--stone-300);
+  --color-stone-400: var(--stone-400);
+  --color-stone-500: var(--stone-500);
+  --color-stone-600: var(--stone-600);
+  --color-stone-700: var(--stone-700);
+  --color-stone-800: var(--stone-800);
+  --color-stone-900: var(--stone-900);
+
+  /* Semantic colours — the ones components should reach for */
+  --color-canvas: var(--canvas);
+  --color-canvas-subtle: var(--canvas-subtle);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-inverse: var(--line-inverse);
+
+  /* shadcn compatibility */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-hover: var(--accent-hover);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  /* Type scale — fluid, editorial. Display sizes lead with the serif. */
+  --text-display-1: clamp(3rem, 1.1rem + 7.6vw, 7rem);
+  --text-display-1--line-height: 0.94;
+  --text-display-1--letter-spacing: -0.03em;
+  --text-display-2: clamp(2.5rem, 1.3rem + 4.8vw, 4.75rem);
+  --text-display-2--line-height: 0.98;
+  --text-display-2--letter-spacing: -0.025em;
+  --text-h1: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.022em;
+  --text-h2: clamp(1.875rem, 1.35rem + 2.1vw, 2.875rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.018em;
+  --text-h3: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem);
+  --text-h3--line-height: 1.18;
+  --text-h3--letter-spacing: -0.014em;
+  --text-h4: clamp(1.25rem, 1.12rem + 0.55vw, 1.5rem);
+  --text-h4--line-height: 1.28;
+  --text-h4--letter-spacing: -0.01em;
+  --text-lead: clamp(1.125rem, 1.04rem + 0.38vw, 1.375rem);
+  --text-lead--line-height: 1.55;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.14em;
+
+  /* Shape */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 2);
+  --radius-xl: calc(var(--radius) * 4);
+
+  /* Elevation */
+  --shadow-subtle: var(--shadow-subtle);
+  --shadow-raised: var(--shadow-raised);
+  --shadow-float: var(--shadow-float);
+  --shadow-overlay: var(--shadow-overlay);
+
+  /* Motion */
+  --ease-out-expo: var(--ease-out-expo);
+  --ease-out-quint: var(--ease-out-quint);
+  --ease-in-out-quart: var(--ease-in-out-quart);
+
+  /* Rhythm */
+  --spacing-section: var(--space-section);
+  --spacing-section-sm: var(--space-section-sm);
+  --spacing-section-lg: var(--space-section-lg);
+  --spacing-gutter: var(--space-gutter);
+}
+
+/* ===========================================================================
+ * Base
+ * ======================================================================== */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    /* Sticky header height — anchors must not land under it. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-canvas text-ink flex min-h-[100svh] flex-col;
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings are unstyled by default so primitives own the scale entirely. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: unset;
+    font-size: unset;
+  }
+
+  ::selection {
+    background: var(--brass-200);
+    color: var(--green-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--space-gutter);
+    max-width: var(--breakpoint-2xl);
+  }
+
+  /* A narrower measure for long-form reading. */
+  .container-prose {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--space-gutter);
+    max-width: 48rem;
+  }
+
+  /* Optical balance for short, large headlines. */
+  .text-balance-pretty {
+    text-wrap: balance;
+  }
+
+  /* Hides content visually while keeping it for assistive tech + crawlers. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
