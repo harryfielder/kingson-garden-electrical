@@ -59,8 +59,11 @@ export const HeroBlockComponent: React.FC<HeroBlockProps> = ({
         '-mt-20 relative isolate flex w-full flex-col justify-end overflow-hidden',
         heightClasses[height || 'half'],
         !hasMedia && textureClasses[texture || 'forest'],
-        onDark ? 'text-sand-50' : 'text-olive-950',
+        onDark ? 'tone-inverse text-sand-50' : 'text-olive-950',
       )}
+      // Read by the header, in CSS, to decide whether it may float
+      // transparently over this block. See `.header-float` in globals.css.
+      data-hero-tone={onDark ? 'dark' : 'light'}
     >
       {background === 'image' && image && (
         <Media

@@ -18,8 +18,8 @@
 @source inline("lg:col-span-{3,4,5,6,7,8,9,12}");
 @source inline("md:col-span-{4,6,8,12}");
 @source inline("border-border");
-@source inline("bg-{card,surface,canvas,ink,brand,accent}");
-@source inline("bg-gradient-{wash,surface,brand,ink,accent,glow}");
+@source inline("bg-{card,surface,canvas,canvas-subtle,canvas-neutral,ink,brand,accent}");
+@source inline("bg-gradient-{wash,neutral,surface,brand,ink,accent,glow}");
 @source inline("border-{error,success,warning}");
 @source inline("bg-{error,success,warning}/30");
 
@@ -37,53 +37,78 @@
 :root {
   /* -- Tier 1: primitive ramps ------------------------------------------- */
 
-  /* Olive — the structural colour of the brand. A green that has sat in the
-     sun: yellow-leaning, soft, and far lighter than a forest green. */
-  --olive-50: oklch(97.6% 0.014 106deg);
-  --olive-100: oklch(95% 0.028 106deg);
-  --olive-200: oklch(90.5% 0.046 108deg);
-  --olive-300: oklch(83.5% 0.064 110deg);
-  --olive-400: oklch(73% 0.076 112deg);
-  --olive-500: oklch(62% 0.079 113deg);
-  --olive-600: oklch(52% 0.074 114deg);
-  --olive-700: oklch(43% 0.064 115deg);
-  --olive-800: oklch(34% 0.05 117deg);
-  --olive-900: oklch(26.5% 0.038 119deg);
-  --olive-950: oklch(19.5% 0.027 120deg);
+  /* Olive — the structural colour of the brand.
+     `--olive-500` is the brand olive exactly: #7e8a5d. Every other step is
+     that same colour walked up and down the OKLCH lightness axis, with
+     chroma tapering at both ends so the tints stay recognisably this green
+     instead of drifting to grey at the top and to black at the bottom. */
+  --olive-50: oklch(97.4% 0.012 118deg); /* #f5f8ef */
+  --olive-100: oklch(94.6% 0.024 119deg); /* #ebf0de */
+  --olive-200: oklch(89.5% 0.04 119.5deg); /* #d9e1c3 */
+  --olive-300: oklch(82% 0.054 120deg); /* #bfcaa3 */
+  --olive-400: oklch(71.5% 0.063 120.5deg); /* #9da97d */
+  --olive-500: oklch(61.19% 0.0657 120.5deg); /* #7e8a5d  ← brand */
+  --olive-600: oklch(52% 0.066 121.5deg); /* #636f43 */
+  --olive-700: oklch(43.5% 0.06 123deg); /* #4b5731 */
+  --olive-800: oklch(34.5% 0.05 125deg); /* #333e20 */
+  --olive-900: oklch(27% 0.038 127deg); /* #212a15 */
+  --olive-950: oklch(19.5% 0.028 129deg); /* #111709 */
 
-  /* Apricot — a pastel orange accent. Warm and soft rather than saturated,
-     so it reads as terracotta and late light rather than as a warning. */
-  --apricot-50: oklch(97.8% 0.016 62deg);
-  --apricot-100: oklch(95.2% 0.034 60deg);
-  --apricot-200: oklch(91.5% 0.058 57deg);
-  --apricot-300: oklch(86.5% 0.082 54deg);
-  --apricot-400: oklch(81% 0.098 51deg);
-  --apricot-500: oklch(75% 0.108 49deg);
-  --apricot-600: oklch(66% 0.112 47deg);
-  --apricot-700: oklch(55% 0.1 45deg);
-  --apricot-800: oklch(43% 0.079 43deg);
-  --apricot-900: oklch(33% 0.058 41deg);
+  /* Apricot — the accent.
+     `--apricot-500` is the brand orange exactly: #f09427. The 50–300 steps
+     are the pastel tints; 600–900 are the darker steps that orange needs
+     before it can be used as text. */
+  --apricot-50: oklch(97.6% 0.018 76deg); /* #fef6ea */
+  --apricot-100: oklch(95% 0.038 74deg); /* #feebd3 */
+  --apricot-200: oklch(91% 0.066 71deg); /* #fedbb2 */
+  --apricot-300: oklch(86% 0.098 68deg); /* #fcc58a */
+  --apricot-400: oklch(80.5% 0.13 66deg); /* #f8ad5d */
+  --apricot-500: oklch(74.59% 0.1571 64deg); /* #f09427  ← brand */
+  --apricot-600: oklch(66% 0.146 60deg); /* #d1791c */
+  --apricot-700: oklch(54.5% 0.132 55deg); /* #a95708 */
+  --apricot-800: oklch(43% 0.104 50deg); /* #7b3b0f */
+  --apricot-900: oklch(32.5% 0.074 45deg); /* #522610 */
 
-  /* Sand — warm neutrals carrying a trace of olive, never a flat grey. */
-  --sand-50: oklch(98.8% 0.004 95deg);
-  --sand-100: oklch(97.2% 0.008 97deg);
-  --sand-200: oklch(94.4% 0.012 99deg);
-  --sand-300: oklch(90% 0.015 101deg);
-  --sand-400: oklch(79% 0.017 104deg);
-  --sand-500: oklch(66% 0.019 108deg);
-  --sand-600: oklch(53.5% 0.021 111deg);
-  --sand-700: oklch(42% 0.021 114deg);
-  --sand-800: oklch(32% 0.019 117deg);
-  --sand-900: oklch(24% 0.017 119deg);
+  /* Sand — the warm off-white family. Carries a trace of the olive hue so
+     it reads as paper and lime render rather than as grey. `--sand-50` is
+     the off-white the whole site sits on. */
+  --sand-50: oklch(98.2% 0.005 96deg); /* #faf9f5 */
+  --sand-100: oklch(96.6% 0.008 98deg); /* #f5f4ee */
+  --sand-200: oklch(93.6% 0.011 101deg); /* #ebeae2 */
+  --sand-300: oklch(89% 0.014 104deg); /* #dcdbd1 */
+  --sand-400: oklch(78% 0.016 107deg); /* #b8b8ad */
+  --sand-500: oklch(65% 0.017 110deg); /* #8f9085 */
+  --sand-600: oklch(52.5% 0.018 112deg); /* #6a6c60 */
+  --sand-700: oklch(41% 0.018 114deg); /* #4a4c41 */
+  --sand-800: oklch(31% 0.016 116deg); /* #303128 */
+  --sand-900: oklch(23% 0.014 118deg); /* #1c1e16 */
 
-  /* Status */
-  --success-base: oklch(58% 0.11 150deg);
-  --warning-base: oklch(72% 0.13 78deg);
-  --error-base: oklch(55% 0.19 27deg);
+  /* Stone — the neutral counterweight. Near-zero chroma, so a band set in
+     stone steps back from the warmth without going white. Deliberately
+     short: this family exists for backgrounds and hairlines, and text on it
+     comes from ink/sand. */
+  --stone-50: oklch(98.4% 0.002 250deg); /* #f9fafb */
+  --stone-100: oklch(96.4% 0.003 250deg); /* #f2f3f5 */
+  --stone-200: oklch(93% 0.004 250deg); /* #e6e8ea */
+  --stone-300: oklch(87.5% 0.005 250deg); /* #d3d6d9 */
+  --stone-400: oklch(75% 0.006 250deg); /* #abaeb2 */
+  --stone-500: oklch(61% 0.007 250deg); /* #808487 */
+
+  /* Status. Warning is pulled towards yellow so a validation message is
+     never mistaken for the apricot accent sitting next to it. */
+  --success-base: oklch(56% 0.12 155deg); /* #298954 */
+  --warning-base: oklch(66% 0.14 82deg); /* #b48709 */
+  --error-base: oklch(55% 0.19 27deg); /* #c9302d */
 
   /* -- Tier 2: semantic aliases (light — "orchard") --------------------- */
+
+  /* Three background families, on purpose. `canvas` is the warm off-white
+     the site rests on, `surface` is the white a card lifts to, and
+     `canvas-neutral` is the cool grey band for sections that need to step
+     back from the warmth without going white. */
   --canvas: var(--sand-50);
   --canvas-subtle: var(--sand-100);
+  --canvas-neutral: var(--stone-100);
   --surface: oklch(100% 0 0deg);
   --surface-raised: oklch(100% 0 0deg);
   --ink: var(--olive-950);
@@ -91,15 +116,21 @@
   --ink-subtle: var(--sand-500);
   --ink-inverse: var(--sand-50);
 
+  /* `-base` is the literal brand colour, for fills, marks and large shapes.
+     `--brand` is the text-safe step: #7e8a5d only reaches 3.5:1 on the
+     canvas, so it can carry a panel or a logo but never body copy. */
+  --brand-base: var(--olive-500);
   --brand: var(--olive-700);
   --brand-hover: var(--olive-800);
   --brand-soft: var(--olive-50);
   --brand-foreground: var(--sand-50);
 
-  /* Apricot is pale, so it is a *surface* colour. Text uses apricot-700+,
-     which clears 4.5:1 against the canvas; apricot-400 as text would not. */
-  --accent-base: var(--apricot-400);
-  --accent-hover: var(--apricot-300);
+  /* The same split for the orange: #f09427 fills, apricot-700 writes.
+     `--accent-foreground` is the text that sits *on* the fill, so it stays
+     dark in both themes — anything that needs text on `--accent-soft` wants
+     `--accent-ink`, which inverts with the theme. */
+  --accent-base: var(--apricot-500);
+  --accent-hover: var(--apricot-600);
   --accent-ink: var(--apricot-700);
   --accent-soft: var(--apricot-50);
   --accent-foreground: var(--olive-950);
@@ -109,16 +140,50 @@
   --line-inverse: oklch(100% 0 0deg / 16%);
 
   --focus-ring: var(--apricot-600);
+
+  /* -- shadcn/ui compatibility.
+     These names are baked into the vendored `components/ui/*` files. They
+     are aliases onto the tokens above and never introduce a new colour;
+     without them, every `bg-card` and `border-border` in those components
+     resolves to nothing. ------------------------------------------------- */
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --secondary: var(--canvas-subtle);
+  --secondary-foreground: var(--ink);
+  --muted: var(--canvas-subtle);
+  --muted-foreground: var(--ink-muted);
+  /* shadcn's `accent` is the subtle hover surface behind a menu row, not the
+     brand accent — pointing it at #f09427 makes every highlighted option in a
+     select look like a call to action. */
+  --accent: var(--apricot-100);
+  --destructive: var(--error-base);
+  --destructive-foreground: var(--sand-50);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--focus-ring);
+  --success: var(--success-base);
+  --warning: var(--warning-base);
+  --error: var(--error-base);
+
   /* -- Shape ------------------------------------------------------------- */
   --radius: 0.25rem;
 
-  /* -- Elevation. Warm-tinted, never neutral black. ---------------------- */
-  --shadow-subtle: 0 1px 2px oklch(26.5% 0.038 119deg / 6%);
+  /* -- Elevation. Mixed from the darkest olive, never neutral black, so a
+     shadow warms the surface under it instead of greying it. ------------- */
+  --shadow-subtle: 0 1px 2px color-mix(in oklab, var(--olive-950) 7%, transparent);
   --shadow-raised:
-    0 1px 2px oklch(26.5% 0.038 119deg / 5%), 0 4px 12px oklch(26.5% 0.038 119deg / 6%);
+    0 1px 2px color-mix(in oklab, var(--olive-950) 6%, transparent),
+    0 4px 12px color-mix(in oklab, var(--olive-950) 7%, transparent);
   --shadow-float:
-    0 2px 4px oklch(26.5% 0.038 119deg / 5%), 0 12px 32px oklch(26.5% 0.038 119deg / 9%);
-  --shadow-overlay: 0 24px 64px oklch(19.5% 0.027 120deg / 18%);
+    0 2px 4px color-mix(in oklab, var(--olive-950) 6%, transparent),
+    0 12px 32px color-mix(in oklab, var(--olive-950) 10%, transparent);
+  --shadow-overlay: 0 24px 64px color-mix(in oklab, var(--olive-950) 20%, transparent);
 
   /* -- Gradients. Deliberately low-contrast: they should read as light
      falling across a surface, not as a coloured panel. -------------------- */
@@ -126,21 +191,30 @@
   --gradient-wash: linear-gradient(
     172deg,
     var(--sand-100) 0%,
-    var(--sand-50) 42%,
+    var(--sand-50) 45%,
     var(--apricot-50) 100%
   );
+  --gradient-neutral: linear-gradient(180deg, var(--stone-50) 0%, var(--stone-200) 100%);
   --gradient-surface: linear-gradient(180deg, oklch(100% 0 0deg) 0%, var(--sand-50) 100%);
-  --gradient-brand: linear-gradient(152deg, var(--olive-800) 0%, var(--olive-950) 100%);
-  --gradient-ink: linear-gradient(160deg, var(--olive-900) 0%, oklch(15% 0.02 122deg) 100%);
+  --gradient-brand: linear-gradient(152deg, var(--olive-600) 0%, var(--olive-900) 100%);
+  --gradient-ink: linear-gradient(160deg, var(--olive-900) 0%, oklch(14% 0.02 130deg) 100%);
   --gradient-accent: linear-gradient(145deg, var(--apricot-200) 0%, var(--apricot-50) 100%);
-  /* A soft glow to sit behind headings and CTAs. */
+
+  /* A soft pool of warm light, for behind headlines and CTAs. */
   --gradient-glow: radial-gradient(
     60% 70% at 50% 0%,
-    oklch(86.5% 0.082 54deg / 34%) 0%,
+    color-mix(in oklab, var(--apricot-400) 36%, transparent) 0%,
     transparent 70%
   );
+
   /* Hairlines that fade out at both ends — less mechanical than a solid rule. */
-  --gradient-hairline: linear-gradient(90deg, transparent, var(--sand-300) 18%, var(--sand-300) 82%, transparent);
+  --gradient-hairline: linear-gradient(
+    90deg,
+    transparent,
+    var(--sand-300) 18%,
+    var(--sand-300) 82%,
+    transparent
+  );
 
   /* -- Motion ------------------------------------------------------------ */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -160,42 +234,80 @@
 }
 
 [data-theme='dark'] {
-  /* "Dusk" — the same garden after sunset. */
+  /* "Dusk" — the same garden after sunset. Only Tier 2 is redefined; the
+     ramps above are absolute and never change between themes. */
   --canvas: var(--olive-950);
-  --canvas-subtle: oklch(23% 0.03 120deg);
+  --canvas-subtle: oklch(23.5% 0.032 128deg);
+  --canvas-neutral: oklch(23% 0.005 250deg);
   --surface: var(--olive-900);
-  --surface-raised: oklch(30% 0.04 118deg);
+  --surface-raised: oklch(31% 0.04 126deg);
   --ink: var(--sand-50);
-  --ink-muted: oklch(76% 0.016 105deg);
-  --ink-subtle: oklch(64% 0.018 108deg);
+  --ink-muted: oklch(75% 0.016 105deg);
+  --ink-subtle: oklch(63% 0.018 108deg);
   --ink-inverse: var(--olive-950);
 
+  /* On a dark canvas the brand olive inverts: #7e8a5d is now the readable
+     step (10:1 here) and the pale tints carry the emphasis. */
+  --brand-base: var(--olive-500);
   --brand: var(--olive-300);
   --brand-hover: var(--olive-200);
-  --brand-soft: oklch(29% 0.042 117deg);
+  --brand-soft: oklch(29% 0.044 124deg);
   --brand-foreground: var(--olive-950);
 
-  --accent-base: var(--apricot-300);
-  --accent-hover: var(--apricot-200);
+  --accent-base: var(--apricot-400);
+  --accent-hover: var(--apricot-300);
   --accent-ink: var(--apricot-300);
-  --accent-soft: oklch(31% 0.055 48deg);
+  --accent-soft: oklch(30% 0.056 52deg);
   --accent-foreground: var(--olive-950);
 
   --line: oklch(100% 0 0deg / 12%);
   --line-strong: oklch(100% 0 0deg / 22%);
-  --line-inverse: oklch(19.5% 0.027 120deg / 18%);
+  --line-inverse: oklch(19.5% 0.028 129deg / 18%);
 
-  --secondary: oklch(31% 0.036 118deg);
+  --focus-ring: var(--apricot-400);
+
+  /* shadcn/ui compatibility — see the light block for why these exist. */
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-foreground);
+  --secondary: oklch(31% 0.036 126deg);
   --secondary-foreground: var(--sand-50);
-  --muted: oklch(28% 0.032 118deg);
-  --destructive: oklch(62% 0.17 27deg);
+  --muted: oklch(28% 0.032 126deg);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--accent-soft);
+  --destructive: oklch(66% 0.17 27deg);
+  --destructive-foreground: var(--olive-950);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--focus-ring);
+  --success: oklch(72% 0.13 155deg);
+  --warning: oklch(80% 0.13 85deg);
+  --error: oklch(68% 0.17 27deg);
 
-  --gradient-page: linear-gradient(180deg, var(--olive-950) 0%, oklch(16% 0.024 122deg) 100%);
-  --gradient-wash: linear-gradient(172deg, oklch(23% 0.03 120deg) 0%, var(--olive-950) 100%);
+  --gradient-page: linear-gradient(180deg, var(--olive-950) 0%, oklch(15% 0.024 130deg) 100%);
+  --gradient-wash: linear-gradient(172deg, oklch(23.5% 0.032 128deg) 0%, var(--olive-950) 100%);
+  --gradient-neutral: linear-gradient(180deg, oklch(25% 0.005 250deg) 0%, oklch(20% 0.004 250deg) 100%);
   --gradient-surface: linear-gradient(180deg, var(--olive-900) 0%, var(--olive-950) 100%);
-  --gradient-accent: linear-gradient(145deg, oklch(31% 0.055 48deg) 0%, oklch(24% 0.03 60deg) 100%);
-  --gradient-glow: radial-gradient(60% 70% at 50% 0%, oklch(86.5% 0.082 54deg / 12%) 0%, transparent 70%);
-  --gradient-hairline: linear-gradient(90deg, transparent, oklch(100% 0 0deg / 14%) 18%, oklch(100% 0 0deg / 14%) 82%, transparent);
+  --gradient-brand: linear-gradient(152deg, oklch(30% 0.046 124deg) 0%, var(--olive-950) 100%);
+  --gradient-ink: linear-gradient(160deg, var(--olive-900) 0%, oklch(13% 0.018 130deg) 100%);
+  --gradient-accent: linear-gradient(145deg, oklch(30% 0.056 52deg) 0%, oklch(23% 0.03 60deg) 100%);
+  --gradient-glow: radial-gradient(
+    60% 70% at 50% 0%,
+    color-mix(in oklab, var(--apricot-400) 13%, transparent) 0%,
+    transparent 70%
+  );
+  --gradient-hairline: linear-gradient(
+    90deg,
+    transparent,
+    oklch(100% 0 0deg / 14%) 18%,
+    oklch(100% 0 0deg / 14%) 82%,
+    transparent
+  );
 
   --shadow-subtle: 0 1px 2px oklch(0% 0 0deg / 30%);
   --shadow-raised: 0 1px 2px oklch(0% 0 0deg / 26%), 0 4px 12px oklch(0% 0 0deg / 32%);
@@ -252,10 +364,17 @@
   --color-sand-700: var(--sand-700);
   --color-sand-800: var(--sand-800);
   --color-sand-900: var(--sand-900);
+  --color-stone-50: var(--stone-50);
+  --color-stone-100: var(--stone-100);
+  --color-stone-200: var(--stone-200);
+  --color-stone-300: var(--stone-300);
+  --color-stone-400: var(--stone-400);
+  --color-stone-500: var(--stone-500);
 
   /* Semantic colours — the ones components should reach for */
   --color-canvas: var(--canvas);
   --color-canvas-subtle: var(--canvas-subtle);
+  --color-canvas-neutral: var(--canvas-neutral);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-ink: var(--ink);
@@ -263,6 +382,7 @@
   --color-ink-subtle: var(--ink-subtle);
   --color-ink-inverse: var(--ink-inverse);
   --color-brand: var(--brand);
+  --color-brand-base: var(--brand-base);
   --color-brand-hover: var(--brand-hover);
   --color-brand-soft: var(--brand-soft);
   --color-brand-foreground: var(--brand-foreground);
@@ -342,6 +462,7 @@
 
   /* Gradients — consumed as bg-(image:--gradient-wash) */
   --color-accent-ink: var(--accent-ink);
+  --color-accent-base: var(--accent-base);
 
   /* Motion */
   --ease-out-expo: var(--ease-out-expo);
@@ -427,10 +548,68 @@
 }
 
 @layer utilities {
+
+  /* ---------------------------------------------------------------------
+   * Floating header.
+   *
+   * The header is transparent until the page scrolls. While it is, its ink
+   * has to suit whatever sits behind it, so the pale treatment is applied
+   * only when the page opens on a dark hero — declared by the Hero block as
+   * `data-hero-tone="dark"`. Over a light opener the header keeps the gold
+   * wordmark and dark links it ships with.
+   *
+   * In CSS rather than the component because the header is rendered above the
+   * page in the tree and cannot be told what the page opens with; probing in
+   * an effect would flash the wrong colours on first paint. In `utilities`
+   * rather than `components` because Tailwind orders utilities last, so a
+   * components-layer rule loses to `text-ink` however specific it is.
+   * ------------------------------------------------------------------ */
+  body:has([data-hero-tone='dark']) .header-float .header-float-ink {
+    color: var(--sand-50);
+  }
+
+  body:has([data-hero-tone='dark']) .header-float .header-float-ink:hover {
+    color: var(--apricot-200);
+  }
+
+  /* The wordmark ships dark; over a photograph it has to be knocked out. */
+  body:has([data-hero-tone='dark']) .header-float .header-float-logo {
+    filter: brightness(0) invert(1);
+  }
+
+  /* ---------------------------------------------------------------------
+   * Inverse bands.
+   *
+   * A dark band redefines the semantic tokens locally rather than asking
+   * every block to thread its section tone down into every link it renders.
+   * Anything reaching for `text-ink`, `border-line-strong`, `text-brand` or a
+   * button variant then lands the right way round: an outline button on the
+   * brand section was rendering near-black text on near-black, because the
+   * variant resolves `--ink` and nothing had told it the ground had changed.
+   * ------------------------------------------------------------------ */
+  .tone-inverse {
+    --ink: var(--sand-50);
+    --ink-muted: oklch(82% 0.018 104deg);
+    --ink-subtle: oklch(70% 0.02 106deg);
+    --line: var(--line-inverse);
+    --line-strong: oklch(100% 0 0deg / 32%);
+    --canvas-subtle: oklch(100% 0 0deg / 10%);
+    --brand: var(--olive-200);
+    --brand-hover: var(--olive-100);
+    --brand-soft: oklch(100% 0 0deg / 12%);
+    --brand-foreground: var(--olive-950);
+    --accent-ink: var(--apricot-300);
+    --focus-ring: var(--apricot-300);
+  }
+
   /* Gradient surfaces. Kept as utilities rather than inline styles so the
      definitions stay with the tokens. */
   .bg-gradient-wash {
     background-image: var(--gradient-wash);
+  }
+
+  .bg-gradient-neutral {
+    background-image: var(--gradient-neutral);
   }
 
   .bg-gradient-surface {

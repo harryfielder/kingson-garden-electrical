@@ -4,6 +4,8 @@ import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
 import React from 'react'
 
+import { Check } from 'lucide-react'
+
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { DocumentCard } from '@/components/DocumentCard'
 import { JsonLd } from '@/components/JsonLd'
@@ -20,6 +22,7 @@ import {
   Section,
   SectionHeader,
   Stack,
+  Surface,
   Text,
 } from '@/design-system'
 import type { Service, Testimonial } from '@/payload-types'
@@ -34,6 +37,7 @@ import {
   serviceSchema,
   webPageSchema,
 } from '@/seo/schema'
+import { cn } from '@/utilities/ui'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getDocumentPath } from '@/utilities/routing'
 import { getSiteSettings } from '@/utilities/getSiteSettings'
@@ -120,39 +124,73 @@ export default async function ServicePage({ params: paramsPromise }: Args) {
         </Section>
       )}
 
+      {/* The scope and the price are the two things a buyer scans for, so they
+          are lifted out of the prose onto their own panels and the band is set
+          in the neutral grey — it reads as a specification, not as more copy.
+          The price panel takes the accent tint because it is the one that
+          carries the decision. */}
       {(service.deliverables?.length || service.priceFrom) && (
-        <Section spacing="sm" tone="canvas">
+        <Section spacing="sm" tone="neutral">
           <Container>
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
               {service.deliverables?.length ? (
-                <div className="lg:col-span-8">
+                <Surface
+                  // Not every service carries a price; without one the scope
+                  // panel takes the full width rather than leaving a gap.
+                  className={service.priceFrom ? 'lg:col-span-8' : 'lg:col-span-12'}
+                  elevation="subtle"
+                  padding="lg"
+                  radius="lg"
+                  tone="surface"
+                >
                   <Stack gap="md">
                     <Heading as="h2" size="h3">
                       What’s included
                     </Heading>
-                    <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <ul
+                      className={cn(
+                        'grid grid-cols-1 gap-x-8 sm:grid-cols-2',
+                        !service.priceFrom && 'lg:grid-cols-3',
+                      )}
+                    >
                       {service.deliverables.map((deliverable, i) => (
-                        <li className="border-line flex gap-3 border-b pb-3" key={i}>
+                        <li className="border-line flex items-start gap-3 border-b py-3" key={i}>
+                          <Check
+                            aria-hidden
+                            className="text-accent-ink mt-1 size-4 shrink-0"
+                            strokeWidth={2.5}
+                          />
                           <Text as="span">{deliverable.item}</Text>
                         </li>
                       ))}
                     </ul>
                   </Stack>
-                </div>
+                </Surface>
               ) : null}
 
               {service.priceFrom ? (
-                <div className="lg:col-span-4">
+                <Surface
+                  className={cn(
+                    // Stretched to the scope panel's height so the band reads
+                    // as two columns rather than a card beside a gap.
+                    'border-apricot-200 flex flex-col justify-center',
+                    service.deliverables?.length ? 'lg:col-span-4' : 'lg:col-span-6',
+                  )}
+                  elevation="subtle"
+                  padding="lg"
+                  radius="lg"
+                  tone="accent"
+                >
                   <Stack gap="sm">
                     <Heading as="h2" size="h4">
                       Indicative pricing
                     </Heading>
-                    <Text size="lead" tone="default" weight="semibold">
+                    <p className="font-display text-h2 text-brand leading-none">
                       From £{service.priceFrom.toLocaleString('en-GB')}
-                    </Text>
+                    </p>
                     {service.priceNote && <Text size="sm">{service.priceNote}</Text>}
                   </Stack>
-                </div>
+                </Surface>
               ) : null}
             </div>
           </Container>

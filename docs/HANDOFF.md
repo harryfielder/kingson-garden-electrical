@@ -50,10 +50,33 @@ own origin from `VERCEL_PROJECT_PRODUCTION_URL`. Set it once a custom domain exi
 - **Hero is a block, not a page field.** The Payload website template ships a fixed
   `hero` group; it was removed so every page is one ordered list of blocks and a page
   can legitimately open without a hero.
-- **Dark mode is opt-in only.** `InitTheme` honours a stored preference but deliberately
-  does *not* follow `prefers-color-scheme` — half the audience silently getting a
-  different palette makes brand presentation unpredictable. Dark tokens are complete if
-  it's ever wanted.
+- **Dark mode is opt-in, and now reachable.** The toggle sits at the right-hand end of
+  the header (`providers/Theme/ThemeToggle`). `InitTheme` honours a stored preference but
+  deliberately does *not* follow `prefers-color-scheme` — half the audience silently
+  getting a different palette makes brand presentation unpredictable. The toggle renders
+  both icons and swaps them in CSS off `[data-theme]`; picking one from React state
+  hydrates against markup the server rendered without knowing the stored theme, which
+  React reports as a mismatch.
+- **The palette is derived from two client hexes.** `--olive-500` is exactly `#7e8a5d`
+  and `--apricot-500` is exactly `#f09427`; every other step walks that colour along the
+  OKLCH lightness axis. `sand` is the warm off-white the site sits on, `stone` is the
+  near-neutral grey for bands that need to step back from the warmth. Change a ramp in
+  `globals.css` and the site reskins — no component holds a colour value.
+- **`-base` fills, `-ink` writes.** `#7e8a5d` reaches only 3.5:1 on the canvas, so
+  `--brand-base` is for fills and marks and `--brand` is the darker text-safe step. Same
+  split on the accent. `--accent-foreground` is the text that sits *on* the orange fill
+  and stays dark in both themes; text on `--accent-soft` wants `--accent-ink`, which
+  inverts with the theme.
+- **Inverse bands redefine the tokens locally.** `Section` tones `brand` and `ink`, and a
+  Hero over a dark image, carry `.tone-inverse`, which repoints `--ink`, `--line-strong`,
+  `--brand` and friends at their light-on-dark values. Blocks therefore don't need to
+  thread the section tone into every link they render.
+- **The header's ink follows the hero, in CSS.** The Hero declares `data-hero-tone`, and
+  `body:has([data-hero-tone='dark']) .header-float` knocks the wordmark out to white.
+  The header is rendered above the page in the tree so it can't be told from the page,
+  and probing in an effect flashes the wrong colours on first paint. Those rules live in
+  `@layer utilities`, not `components` — Tailwind orders utilities last, so a
+  components-layer rule loses to `text-ink` however specific it is.
 - **`push: false` on the DB adapter.** Schema changes go through committed migrations, so
   a deploy can never silently alter production's schema.
 - **Migrations use Neon's direct endpoint** via the `PAYLOAD_MIGRATING` flag; the pooler

@@ -25,6 +25,7 @@ export const appearanceField: Field = {
           options: [
             { label: 'Canvas (page background)', value: 'canvas' },
             { label: 'Subtle (warm sand)', value: 'subtle' },
+            { label: 'Neutral (cool grey)', value: 'neutral' },
             { label: 'Wash (soft gradient)', value: 'wash' },
             { label: 'Surface (white panel)', value: 'surface' },
             { label: 'Brand (deep olive)', value: 'brand' },

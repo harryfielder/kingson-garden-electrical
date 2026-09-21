@@ -17,8 +17,12 @@ export const sectionVariants = cva('relative w-full', {
       surface: 'bg-surface text-ink',
       /** A soft wash from sand into apricot — the default for quieter bands. */
       wash: 'bg-gradient-wash text-ink',
-      brand: 'bg-gradient-brand text-sand-50 [--line:var(--line-inverse)]',
-      ink: 'bg-gradient-ink text-sand-50 [--line:var(--line-inverse)]',
+      /** The cool grey counterweight: steps back from the warmth without
+       * going white, so a dense band (specs, FAQs, downloads) can sit
+       * between two warm ones without the page feeling relentlessly beige. */
+      neutral: 'bg-gradient-neutral text-ink [--line:var(--stone-300)]',
+      brand: 'tone-inverse bg-gradient-brand text-sand-50',
+      ink: 'tone-inverse bg-gradient-ink text-sand-50',
       accent: 'bg-gradient-accent text-olive-950',
       none: '',
     },

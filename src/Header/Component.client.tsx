@@ -10,6 +10,7 @@ import { Logo } from '@/components/Logo/Logo'
 import { Media } from '@/components/Media'
 import { Button, Container, Eyebrow, Text } from '@/design-system'
 import type { Header as HeaderType, SiteSetting } from '@/payload-types'
+import { ThemeToggle } from '@/providers/Theme/ThemeToggle'
 import { getDocumentPath } from '@/utilities/routing'
 import { cn } from '@/utilities/ui'
 
@@ -35,6 +36,15 @@ const hrefFor = (link?: { reference?: any; type?: string | null; url?: string | 
  * Transparent over a hero until the page is scrolled, then it commits to a
  * solid background — an image-led site loses its opening shot to a solid bar,
  * but text over an unknown photo needs a real backdrop once scrolling starts.
+ *
+ * While transparent, the ink has to match whatever is behind it. Over a dark
+ * hero the wordmark is knocked out to white and the links go pale; over a
+ * light opener (the service index, search, 404) both stay as they ship — the
+ * gold wordmark and dark links — because a white-on-white header is invisible.
+ * The Hero block declares which it is as `data-hero-tone`, and the swap
+ * happens in CSS: the header is a client component rendered above the page in
+ * the tree, so it cannot be told from the page, and probing in an effect would
+ * flash the wrong colours on first paint.
  */
 export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) => {
   const [openMenu, setOpenMenu] = useState<number | null>(null)
@@ -91,7 +101,7 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
         'fixed inset-x-0 top-0 z-100 transition-[background-color,box-shadow,border-color] duration-(--duration-base)',
         solid
           ? 'bg-canvas/95 border-line border-b shadow-subtle backdrop-blur-md'
-          : 'border-b border-transparent bg-transparent',
+          : 'header-float border-b border-transparent bg-transparent',
       )}
       ref={headerRef}
     >
@@ -99,7 +109,7 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
         <div className="flex h-20 items-center justify-between gap-6">
           <Link aria-label={`${settings.businessName} — home`} className="shrink-0" href="/">
             <Logo
-              className={cn('h-9 w-auto transition-[filter]', !solid && 'brightness-0 invert')}
+              className={cn('h-9 w-auto transition-[filter]', !solid && 'header-float-logo')}
               loading="eager"
               name={settings.businessName}
               priority="high"
@@ -121,7 +131,8 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
                         aria-haspopup="true"
                         className={cn(
                           'inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                          solid ? 'text-ink hover:text-brand' : 'text-sand-50 hover:text-apricot-200',
+                          'text-ink hover:text-brand',
+                          !solid && 'header-float-ink',
                         )}
                         onClick={() => setOpenMenu(expanded ? null : index)}
                         type="button"
@@ -136,7 +147,8 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
                       <Link
                         className={cn(
                           'inline-block rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                          solid ? 'text-ink hover:text-brand' : 'text-sand-50 hover:text-apricot-200',
+                          'text-ink hover:text-brand',
+                          !solid && 'header-float-ink',
                         )}
                         href={hrefFor(item.link)}
                       >
@@ -154,7 +166,8 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
               <a
                 className={cn(
                   'inline-flex items-center gap-2 text-sm font-medium transition-colors',
-                  solid ? 'text-ink hover:text-brand' : 'text-sand-50 hover:text-apricot-200',
+                  'text-ink hover:text-brand',
+                  !solid && 'header-float-ink',
                 )}
                 href={telHref}
               >
@@ -165,17 +178,25 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
             {(data.ctas || []).map(({ link }, i) => (
               <CMSLink key={i} {...link} size="sm" />
             ))}
+            <ThemeToggle className={cn(!solid && 'header-float-ink hover:bg-white/10')} />
           </div>
 
-          <button
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            className={cn('rounded-md p-2 lg:hidden', solid ? 'text-ink' : 'text-sand-50')}
-            onClick={() => setMobileOpen((open) => !open)}
-            type="button"
-          >
-            {mobileOpen ? <X aria-hidden className="size-6" /> : <Menu aria-hidden className="size-6" />}
-          </button>
+          <div className="flex items-center gap-1 lg:hidden">
+            <ThemeToggle className={cn(!solid && 'header-float-ink hover:bg-white/10')} />
+            <button
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              className={cn('rounded-md p-2 text-ink', !solid && 'header-float-ink')}
+              onClick={() => setMobileOpen((open) => !open)}
+              type="button"
+            >
+              {mobileOpen ? (
+                <X aria-hidden className="size-6" />
+              ) : (
+                <Menu aria-hidden className="size-6" />
+              )}
+            </button>
+          </div>
         </div>
       </Container>
 

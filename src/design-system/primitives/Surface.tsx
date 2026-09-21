@@ -9,7 +9,10 @@ export const surfaceVariants = cva('relative', {
       surface: 'bg-surface text-ink',
       subtle: 'bg-canvas-subtle text-ink',
       brand: 'bg-olive-900 text-sand-50 [--line:var(--line-inverse)]',
-      accent: 'bg-apricot-50 text-olive-950',
+      /* Semantic, not a raw ramp step: `accent-soft` is a pale tint in the
+         light theme and a deep one in the dark, so an accent panel stays a
+         panel instead of becoming a bright slab on a dark page. */
+      accent: 'bg-accent-soft text-ink',
       outline: 'bg-transparent text-ink',
       none: '',
     },

@@ -27,9 +27,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        /** Primary action. Deep green, the workhorse. */
+        /** Primary action. Olive, the workhorse. */
         default: 'rounded-md bg-brand text-brand-foreground shadow-subtle hover:bg-brand-hover active:translate-y-px',
-        /** Highest-emphasis action. Brass — used once per view at most. */
+        /** Highest-emphasis action. The brand orange (#f09427), used once
+         * per view at most — it stops being an accent if it repeats. */
         accent:
           'rounded-md bg-apricot-500 text-olive-950 shadow-subtle hover:bg-apricot-400 active:translate-y-px',
         outline:

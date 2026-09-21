@@ -22,6 +22,9 @@ npx tsc --noEmit              # full typecheck (~90s)
 - Import primitives from `@/design-system`, never from `design-system/primitives/*`
 - Colour, type, spacing and motion are CSS custom properties in
   `app/(frontend)/globals.css`, in three tiers. Never hard-code a colour in a component
+- The ramps are anchored on the client's two hexes: `--olive-500` is `#7e8a5d` and
+  `--apricot-500` is `#f09427`. Reach for the semantic alias (`--brand`, `--accent-ink`),
+  not a ramp step, so a component keeps working in both themes
 - `src/utilities/routing.ts` is the single source of truth for collection → URL. Links,
   breadcrumbs, sitemaps, canonicals, preview and JSON-LD all resolve through it
 - Blocks own their vertical rhythm via `BlockSection`; `RenderBlocks` adds no spacing
