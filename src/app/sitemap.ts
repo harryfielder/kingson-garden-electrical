@@ -40,14 +40,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayload({ config: configPromise })
   const base = getServerSideURL()
 
-  const entries: MetadataRoute.Sitemap = [
-    { url: `${base}/`, changeFrequency: 'weekly', priority: 1 },
-    ...Object.values(collectionIndexPath).map((path) => ({
-      url: `${base}${path}`,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    })),
-  ]
+  const documents: MetadataRoute.Sitemap = []
+
+  /**
+   * An index route has no document of its own, so it inherits the freshest
+   * `updatedAt` of the collection it lists — without that a crawler gets no
+   * recency signal at all on the hub pages it hits most often.
+   */
+  const newestPerCollection = new Map<RoutableCollection, Date>()
+  let homeLastModified: Date | undefined
 
   for (const config of collections) {
     const result = await payload.find({
@@ -63,17 +64,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const typed = doc as { meta?: { noindex?: boolean; priority?: string }; slug?: string; updatedAt?: string }
       if (!typed.slug || typed.meta?.noindex) return
 
-      // The home page is already listed at the root.
-      if (config.collection === 'pages' && typed.slug === 'home') return
+      const lastModified = typed.updatedAt ? new Date(typed.updatedAt) : undefined
 
-      entries.push({
+      if (lastModified) {
+        const newest = newestPerCollection.get(config.collection)
+        if (!newest || lastModified > newest) {
+          newestPerCollection.set(config.collection, lastModified)
+        }
+      }
+
+      // The home page is already listed at the root, and dates it.
+      if (config.collection === 'pages' && typed.slug === 'home') {
+        homeLastModified = lastModified
+        return
+      }
+
+      documents.push({
         url: `${base}${getDocumentPath(config.collection, typed.slug)}`,
-        lastModified: typed.updatedAt ? new Date(typed.updatedAt) : undefined,
+        lastModified,
         changeFrequency: config.changeFrequency,
         priority: typed.meta?.priority ? Number(typed.meta.priority) : config.defaultPriority,
       })
     })
   }
 
-  return entries
+  return [
+    { url: `${base}/`, lastModified: homeLastModified, changeFrequency: 'weekly', priority: 1 },
+    ...Object.entries(collectionIndexPath).flatMap(([collection, path]) =>
+      path
+        ? [
+            {
+              url: `${base}${path}`,
+              lastModified: newestPerCollection.get(collection as RoutableCollection),
+              changeFrequency: 'weekly' as const,
+              priority: 0.7,
+            },
+          ]
+        : [],
+    ),
+    ...documents,
+  ]
 }
