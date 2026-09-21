@@ -19,7 +19,7 @@ export const Stars: React.FC<{ className?: string; rating?: number | null }> = (
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           aria-hidden
-          className={cn('size-4', i < rating ? 'fill-brass-500 text-brass-500' : 'text-stone-300')}
+          className={cn('size-4', i < rating ? 'fill-apricot-500 text-apricot-500' : 'text-sand-300')}
           key={i}
         />
       ))}
@@ -149,7 +149,7 @@ export const TestimonialCarousel: React.FC<{
               className={cn(
                 'rounded-full border p-3 transition-colors disabled:opacity-35',
                 inverse
-                  ? 'border-white/25 text-stone-50 hover:bg-white/10'
+                  ? 'border-white/25 text-sand-50 hover:bg-white/10'
                   : 'border-line-strong text-ink hover:border-brand hover:text-brand',
               )}
               disabled={disabled}

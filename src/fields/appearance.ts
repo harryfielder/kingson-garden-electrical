@@ -24,11 +24,12 @@ export const appearanceField: Field = {
           defaultValue: 'canvas',
           options: [
             { label: 'Canvas (page background)', value: 'canvas' },
-            { label: 'Subtle (warm stone)', value: 'subtle' },
+            { label: 'Subtle (warm sand)', value: 'subtle' },
+            { label: 'Wash (soft gradient)', value: 'wash' },
             { label: 'Surface (white panel)', value: 'surface' },
-            { label: 'Brand (deep green)', value: 'brand' },
+            { label: 'Brand (deep olive)', value: 'brand' },
             { label: 'Ink (near black)', value: 'ink' },
-            { label: 'Accent (brass tint)', value: 'accent' },
+            { label: 'Accent (apricot tint)', value: 'accent' },
           ],
         },
         {

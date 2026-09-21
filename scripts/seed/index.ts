@@ -333,7 +333,7 @@ const seed = async () => {
           eyebrow: 'Next step',
           heading: 'Let’s look at your garden together',
           body: 'The first visit is free, and we bring the fittings with us so you can see exactly what the light does before anything is specified.',
-          backgroundImage: img('hero-header'),
+          backgroundImage: img('hero-pathway'),
           phoneCta: true,
           links: [
             {
@@ -950,7 +950,7 @@ const seed = async () => {
       title: 'Garden Lighting Design & Installation | Kingson Garden Electrical',
       description:
         'Specialist garden lighting designers and installers since 1985, working across Hertfordshire and north London. Free design consultation. ECA and NICEIC registered.',
-      image: img('hero-header'),
+      image: img('hero-pathway'),
       priority: '1.0',
       summary:
         'Kingson Garden Electrical designs and installs garden lighting and outdoor electrical systems across Hertfordshire and north London. Free consultation, ECA and NICEIC registered, twelve-month workmanship guarantee.',
@@ -960,7 +960,7 @@ const seed = async () => {
         blockType: 'hero',
         height: 'full',
         background: 'image',
-        image: img('hero-header'),
+        image: img('hero-pathway'),
         overlay: 'gradient',
         align: 'left',
         eyebrow: 'Setting the standard for over 40 years',
@@ -1472,7 +1472,7 @@ const seed = async () => {
       socialProfiles: [
         { platform: 'facebook', url: 'https://www.facebook.com/GardenElectrician/' },
       ],
-      defaultMetaImage: img('hero-header'),
+      defaultMetaImage: img('hero-pathway'),
       titleTemplate: '%s | Kingson Garden Electrical',
       llmsSummary: business.llmsSummary,
       allowAiTraining: true,

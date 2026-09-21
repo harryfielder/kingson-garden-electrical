@@ -8,8 +8,8 @@ export const surfaceVariants = cva('relative', {
     tone: {
       surface: 'bg-surface text-ink',
       subtle: 'bg-canvas-subtle text-ink',
-      brand: 'bg-green-900 text-stone-50 [--line:var(--line-inverse)]',
-      accent: 'bg-brass-50 text-green-950',
+      brand: 'bg-olive-900 text-sand-50 [--line:var(--line-inverse)]',
+      accent: 'bg-apricot-50 text-olive-950',
       outline: 'bg-transparent text-ink',
       none: '',
     },

@@ -9,9 +9,9 @@ export const badgeVariants = cva(
       tone: {
         neutral: 'border-line bg-canvas-subtle text-ink-muted',
         brand: 'border-transparent bg-brand-soft text-brand',
-        accent: 'border-transparent bg-brass-100 text-brass-800',
+        accent: 'border-transparent bg-apricot-100 text-apricot-800',
         outline: 'border-line-strong bg-transparent text-ink',
-        inverse: 'border-white/20 bg-white/10 text-stone-50',
+        inverse: 'border-white/20 bg-white/10 text-sand-50',
       },
     },
     defaultVariants: { tone: 'neutral' },

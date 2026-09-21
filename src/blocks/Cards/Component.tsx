@@ -26,6 +26,7 @@ export const CardsBlockComponent: React.FC<CardsBlockProps> = async ({
   eyebrow,
   heading,
   headingLevel,
+  imageRatio,
   intro,
   limit,
   links,
@@ -85,6 +86,7 @@ export const CardsBlockComponent: React.FC<CardsBlockProps> = async ({
                 {...card}
                 as={headingLevel === 'h3' ? 'h4' : 'h3'}
                 className="w-full"
+                ratio={imageRatio && imageRatio !== 'auto' ? (imageRatio as 'square') : undefined}
                 sizes={sizesFor[columns || '3']}
                 style={cardStyle}
               />

@@ -164,7 +164,7 @@ export const FormBlock: React.FC<{ id?: string } & FormBlockType> = ({
                         <span
                           className={cn(
                             'h-1 flex-1 rounded-full transition-colors',
-                            i <= stepIndex ? 'bg-brass-500' : 'bg-line',
+                            i <= stepIndex ? 'bg-apricot-500' : 'bg-line',
                           )}
                           key={i}
                           role="listitem"

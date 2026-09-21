@@ -99,9 +99,11 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
         <div className="flex h-20 items-center justify-between gap-6">
           <Link aria-label={`${settings.businessName} — home`} className="shrink-0" href="/">
             <Logo
-              className={cn('h-9 w-auto transition-opacity', !solid && 'brightness-0 invert')}
+              className={cn('h-9 w-auto transition-[filter]', !solid && 'brightness-0 invert')}
               loading="eager"
+              name={settings.businessName}
               priority="high"
+              resource={settings.logo}
             />
           </Link>
 
@@ -119,7 +121,7 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
                         aria-haspopup="true"
                         className={cn(
                           'inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                          solid ? 'text-ink hover:text-brand' : 'text-stone-50 hover:text-brass-200',
+                          solid ? 'text-ink hover:text-brand' : 'text-sand-50 hover:text-apricot-200',
                         )}
                         onClick={() => setOpenMenu(expanded ? null : index)}
                         type="button"
@@ -134,7 +136,7 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
                       <Link
                         className={cn(
                           'inline-block rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                          solid ? 'text-ink hover:text-brand' : 'text-stone-50 hover:text-brass-200',
+                          solid ? 'text-ink hover:text-brand' : 'text-sand-50 hover:text-apricot-200',
                         )}
                         href={hrefFor(item.link)}
                       >
@@ -152,7 +154,7 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
               <a
                 className={cn(
                   'inline-flex items-center gap-2 text-sm font-medium transition-colors',
-                  solid ? 'text-ink hover:text-brand' : 'text-stone-50 hover:text-brass-200',
+                  solid ? 'text-ink hover:text-brand' : 'text-sand-50 hover:text-apricot-200',
                 )}
                 href={telHref}
               >
@@ -168,7 +170,7 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
           <button
             aria-expanded={mobileOpen}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            className={cn('rounded-md p-2 lg:hidden', solid ? 'text-ink' : 'text-stone-50')}
+            className={cn('rounded-md p-2 lg:hidden', solid ? 'text-ink' : 'text-sand-50')}
             onClick={() => setMobileOpen((open) => !open)}
             type="button"
           >
@@ -179,12 +181,27 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
 
       {/* Megamenu panel */}
       {openMenu !== null && navItems[openMenu]?.type === 'megamenu' && (
-        <div className="border-line bg-canvas hidden border-t shadow-float lg:block">
+        <div className="bg-gradient-wash border-line hidden border-t shadow-float lg:block">
           <Container>
+            {(() => {
+              const menu = navItems[openMenu]?.megamenu
+              const hasFeatured = Boolean(menu?.featured?.enabled)
+              const hasIntro = Boolean(menu?.description)
+              // With no featured panel the link columns would leave a third of
+              // the menu empty, so they widen and the lists split in two.
+              const introSpan = 'col-span-3'
+              const columnSpan = hasFeatured ? 'col-span-3' : hasIntro ? 'col-span-9' : 'col-span-12'
+              // A flex container ignores `columns-*`, so the multi-column
+              // variant has to drop flex rather than sit alongside it.
+              const listClass = hasFeatured
+                ? 'mt-4 flex flex-col gap-1'
+                : 'mt-4 block columns-2 gap-x-8 xl:columns-3'
+
+              return (
             <div className="grid grid-cols-12 gap-10 py-10">
-              {navItems[openMenu]?.megamenu?.description && (
-                <div className="col-span-3">
-                  <Eyebrow rule>{navItems[openMenu]?.label}</Eyebrow>
+              {hasIntro && (
+                <div className={introSpan}>
+                  <Eyebrow>{navItems[openMenu]?.label}</Eyebrow>
                   <Text className="mt-4" size="sm">
                     {navItems[openMenu]?.megamenu?.description}
                   </Text>
@@ -207,15 +224,15 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
                 if (!links.length) return null
 
                 return (
-                  <div className="col-span-3" key={columnIndex}>
+                  <div className={columnSpan} key={columnIndex}>
                     {column.heading && (
                       <p className="text-ink-subtle font-mono text-eyebrow uppercase">
                         {column.heading}
                       </p>
                     )}
-                    <ul className="mt-4 flex flex-col gap-1">
+                    <ul className={listClass}>
                       {links.map((link, linkIndex) => (
-                        <li key={linkIndex}>
+                        <li className="break-inside-avoid" key={linkIndex}>
                           <Link
                             className="group hover:bg-canvas-subtle block rounded-md px-3 py-2 transition-colors"
                             href={link.href}
@@ -236,7 +253,7 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
                 )
               })}
 
-              {navItems[openMenu]?.megamenu?.featured?.enabled && (
+              {hasFeatured && (
                 <div className="col-span-3">
                   <Link className="group block" href={hrefFor(navItems[openMenu]?.megamenu?.featured?.link)}>
                     {navItems[openMenu]?.megamenu?.featured?.image && (
@@ -260,6 +277,8 @@ export const HeaderClient: React.FC<Props> = ({ autoColumns, data, settings }) =
                 </div>
               )}
             </div>
+              )
+            })()}
           </Container>
         </div>
       )}

@@ -57,7 +57,7 @@ export const TextMediaBlockComponent: React.FC<TextMediaBlockProps> = ({
 
         <div className={widths.text}>
           <Stack gap="lg">
-            {eyebrow && <Eyebrow tone={inverse ? 'inverse' : 'accent'} rule>{eyebrow}</Eyebrow>}
+            {eyebrow && <Eyebrow tone={inverse ? 'inverse' : 'accent'}>{eyebrow}</Eyebrow>}
 
             <Heading
               as={(headingLevel as 'h2') || 'h2'}
@@ -83,7 +83,7 @@ export const TextMediaBlockComponent: React.FC<TextMediaBlockProps> = ({
                       aria-hidden
                       className={cn(
                         'mt-0.5 size-5 shrink-0',
-                        inverse ? 'text-brass-300' : 'text-brass-600',
+                        inverse ? 'text-apricot-300' : 'text-apricot-600',
                       )}
                     />
                     <Text as="span" tone={inverse ? 'inverse' : 'muted'}>

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Media } from '@/components/Media'
-import { AspectRatio, Eyebrow, Heading, Surface, Text } from '@/design-system'
+import { AspectRatio, Eyebrow, Heading, Surface, Text, type AspectRatioProps } from '@/design-system'
 import type { Media as MediaType } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
@@ -20,6 +20,12 @@ type DocumentCardProps = CardData & {
   style?: 'image' | 'overlay' | 'text' | null
   /** Heading level, so cards nest correctly under the section heading. */
   as?: 'h3' | 'h4'
+  /**
+   * Crop for the card image. Much of the available photography is portrait,
+   * and forcing it into a 4:3 landscape crop throws away most of the frame —
+   * so the ratio is a choice rather than a constant.
+   */
+  ratio?: AspectRatioProps['ratio']
   sizes?: string
 }
 
@@ -38,6 +44,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
   eyebrow,
   href,
   image,
+  ratio,
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
   style = 'image',
   title,
@@ -61,7 +68,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
         interactive={Boolean(href)}
         className={cn('group isolate overflow-hidden', className)}
       >
-        <AspectRatio ratio="3/4" radius="lg">
+        <AspectRatio radius="lg" ratio={ratio || '3/4'}>
           {image && (
             <Media
               resource={image}
@@ -73,7 +80,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
           )}
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-green-950/90 via-green-950/30 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-olive-950/90 via-olive-950/30 to-transparent"
           />
           <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-6">
             {eyebrow && <Eyebrow tone="inverse">{eyebrow}</Eyebrow>}
@@ -100,7 +107,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({
       className={cn('group flex flex-col overflow-hidden', className)}
     >
       {style === 'image' && image && (
-        <AspectRatio ratio="4/3" radius="none">
+        <AspectRatio radius="none" ratio={ratio || '4/3'}>
           <Media
             resource={image}
             fill

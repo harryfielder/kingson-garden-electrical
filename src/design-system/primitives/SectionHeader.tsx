@@ -45,8 +45,15 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         className,
       )}
     >
-      <div className={cn('flex flex-col gap-4', centered && 'mx-auto max-w-3xl text-center')}>
-        {eyebrow && <Eyebrow tone={tone === 'inverse' ? 'inverse' : 'accent'} rule={!centered}>{eyebrow}</Eyebrow>}
+      <div
+        className={cn(
+          'flex flex-col gap-4',
+          // `items-center` is required as well as `text-center`: the eyebrow is
+          // an inline-flex element and text alignment does not move it.
+          centered && 'mx-auto max-w-3xl items-center text-center',
+        )}
+      >
+        {eyebrow && <Eyebrow tone={tone === 'inverse' ? 'inverse' : 'accent'}>{eyebrow}</Eyebrow>}
         {title && (
           <Heading as={as} size={size} tone={tone === 'inverse' ? 'inverse' : 'default'}>
             {title}

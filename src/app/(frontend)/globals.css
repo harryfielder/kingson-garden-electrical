@@ -19,13 +19,14 @@
 @source inline("md:col-span-{4,6,8,12}");
 @source inline("border-border");
 @source inline("bg-{card,surface,canvas,ink,brand,accent}");
+@source inline("bg-gradient-{wash,surface,brand,ink,accent,glow}");
 @source inline("border-{error,success,warning}");
 @source inline("bg-{error,success,warning}/30");
 
 /* ===========================================================================
  * DESIGN TOKENS — single source of truth
  *
- * Tier 1  Primitive ramps  (--green-*, --brass-*, --stone-*)  raw values
+ * Tier 1  Primitive ramps  (--olive-*, --apricot-*, --sand-*)  raw values
  * Tier 2  Semantic aliases (--background, --brand, --accent)  intent
  * Tier 3  Tailwind theme   (@theme inline)                    utilities
  *
@@ -36,109 +37,110 @@
 :root {
   /* -- Tier 1: primitive ramps ------------------------------------------- */
 
-  /* Forest green — the structural colour of the brand */
-  --green-50: oklch(97.2% 0.012 155deg);
-  --green-100: oklch(94% 0.024 155deg);
-  --green-200: oklch(88% 0.04 155deg);
-  --green-300: oklch(79% 0.058 155deg);
-  --green-400: oklch(66% 0.072 155deg);
-  --green-500: oklch(54% 0.075 155deg);
-  --green-600: oklch(44% 0.07 155deg);
-  --green-700: oklch(34% 0.06 155deg);
-  --green-800: oklch(26% 0.045 156deg);
-  --green-900: oklch(20.5% 0.032 157deg);
-  --green-950: oklch(15.5% 0.024 158deg);
+  /* Olive — the structural colour of the brand. A green that has sat in the
+     sun: yellow-leaning, soft, and far lighter than a forest green. */
+  --olive-50: oklch(97.6% 0.014 106deg);
+  --olive-100: oklch(95% 0.028 106deg);
+  --olive-200: oklch(90.5% 0.046 108deg);
+  --olive-300: oklch(83.5% 0.064 110deg);
+  --olive-400: oklch(73% 0.076 112deg);
+  --olive-500: oklch(62% 0.079 113deg);
+  --olive-600: oklch(52% 0.074 114deg);
+  --olive-700: oklch(43% 0.064 115deg);
+  --olive-800: oklch(34% 0.05 117deg);
+  --olive-900: oklch(26.5% 0.038 119deg);
+  --olive-950: oklch(19.5% 0.027 120deg);
 
-  /* Brass — the accent. Warm, metallic, used sparingly for emphasis. */
-  --brass-50: oklch(97.5% 0.018 84deg);
-  --brass-100: oklch(94.5% 0.038 82deg);
-  --brass-200: oklch(89% 0.068 80deg);
-  --brass-300: oklch(83% 0.095 77deg);
-  --brass-400: oklch(76.5% 0.115 74deg);
-  --brass-500: oklch(70% 0.118 70deg);
-  --brass-600: oklch(60% 0.108 66deg);
-  --brass-700: oklch(49% 0.09 62deg);
-  --brass-800: oklch(38% 0.07 60deg);
-  --brass-900: oklch(29% 0.05 58deg);
+  /* Apricot — a pastel orange accent. Warm and soft rather than saturated,
+     so it reads as terracotta and late light rather than as a warning. */
+  --apricot-50: oklch(97.8% 0.016 62deg);
+  --apricot-100: oklch(95.2% 0.034 60deg);
+  --apricot-200: oklch(91.5% 0.058 57deg);
+  --apricot-300: oklch(86.5% 0.082 54deg);
+  --apricot-400: oklch(81% 0.098 51deg);
+  --apricot-500: oklch(75% 0.108 49deg);
+  --apricot-600: oklch(66% 0.112 47deg);
+  --apricot-700: oklch(55% 0.1 45deg);
+  --apricot-800: oklch(43% 0.079 43deg);
+  --apricot-900: oklch(33% 0.058 41deg);
 
-  /* Stone — warm neutrals. Never pure grey; always a trace of green/ochre. */
-  --stone-50: oklch(98.4% 0.004 90deg);
-  --stone-100: oklch(96.4% 0.006 88deg);
-  --stone-200: oklch(93.2% 0.008 92deg);
-  --stone-300: oklch(88.5% 0.009 95deg);
-  --stone-400: oklch(76% 0.012 100deg);
-  --stone-500: oklch(62% 0.014 120deg);
-  --stone-600: oklch(50% 0.016 140deg);
-  --stone-700: oklch(39% 0.018 150deg);
-  --stone-800: oklch(29% 0.018 152deg);
-  --stone-900: oklch(21% 0.016 155deg);
+  /* Sand — warm neutrals carrying a trace of olive, never a flat grey. */
+  --sand-50: oklch(98.8% 0.004 95deg);
+  --sand-100: oklch(97.2% 0.008 97deg);
+  --sand-200: oklch(94.4% 0.012 99deg);
+  --sand-300: oklch(90% 0.015 101deg);
+  --sand-400: oklch(79% 0.017 104deg);
+  --sand-500: oklch(66% 0.019 108deg);
+  --sand-600: oklch(53.5% 0.021 111deg);
+  --sand-700: oklch(42% 0.021 114deg);
+  --sand-800: oklch(32% 0.019 117deg);
+  --sand-900: oklch(24% 0.017 119deg);
 
   /* Status */
   --success-base: oklch(58% 0.11 150deg);
   --warning-base: oklch(72% 0.13 78deg);
   --error-base: oklch(55% 0.19 27deg);
 
-  /* -- Tier 2: semantic aliases (light / "conservatory") ------------------ */
-  --canvas: var(--stone-50);
-  --canvas-subtle: var(--stone-100);
+  /* -- Tier 2: semantic aliases (light — "orchard") --------------------- */
+  --canvas: var(--sand-50);
+  --canvas-subtle: var(--sand-100);
   --surface: oklch(100% 0 0deg);
   --surface-raised: oklch(100% 0 0deg);
-  --ink: var(--green-950);
-  --ink-muted: var(--stone-600);
-  --ink-subtle: var(--stone-500);
-  --ink-inverse: var(--stone-50);
+  --ink: var(--olive-950);
+  --ink-muted: var(--sand-600);
+  --ink-subtle: var(--sand-500);
+  --ink-inverse: var(--sand-50);
 
-  --brand: var(--green-700);
-  --brand-hover: var(--green-800);
-  --brand-soft: var(--green-50);
-  --brand-foreground: var(--stone-50);
+  --brand: var(--olive-700);
+  --brand-hover: var(--olive-800);
+  --brand-soft: var(--olive-50);
+  --brand-foreground: var(--sand-50);
 
-  --accent-base: var(--brass-500);
-  --accent-hover: var(--brass-600);
-  --accent-soft: var(--brass-50);
-  --accent-foreground: var(--brass-900);
+  /* Apricot is pale, so it is a *surface* colour. Text uses apricot-700+,
+     which clears 4.5:1 against the canvas; apricot-400 as text would not. */
+  --accent-base: var(--apricot-400);
+  --accent-hover: var(--apricot-300);
+  --accent-ink: var(--apricot-700);
+  --accent-soft: var(--apricot-50);
+  --accent-foreground: var(--olive-950);
 
-  --line: var(--stone-300);
-  --line-strong: var(--stone-400);
-  --line-inverse: oklch(100% 0 0deg / 18%);
+  --line: var(--sand-300);
+  --line-strong: var(--sand-400);
+  --line-inverse: oklch(100% 0 0deg / 16%);
 
-  --focus-ring: var(--brass-500);
-
-  /* -- shadcn/ui compatibility layer ------------------------------------- *
-   * The template's primitives (button, input, card …) reference these.
-   * Mapping them here keeps one palette across both systems.               */
-  --background: var(--canvas);
-  --foreground: var(--ink);
-  --card: var(--surface);
-  --card-foreground: var(--ink);
-  --popover: var(--surface);
-  --popover-foreground: var(--ink);
-  --primary: var(--brand);
-  --primary-foreground: var(--brand-foreground);
-  --secondary: var(--stone-200);
-  --secondary-foreground: var(--green-900);
-  --muted: var(--stone-100);
-  --muted-foreground: var(--ink-muted);
-  --accent: var(--accent-base);
-  --destructive: var(--error-base);
-  --destructive-foreground: var(--stone-50);
-  --border: var(--line);
-  --input: var(--line);
-  --ring: var(--focus-ring);
-  --success: var(--success-base);
-  --warning: var(--warning-base);
-  --error: var(--error-base);
-
+  --focus-ring: var(--apricot-600);
   /* -- Shape ------------------------------------------------------------- */
   --radius: 0.25rem;
 
   /* -- Elevation. Warm-tinted, never neutral black. ---------------------- */
-  --shadow-subtle: 0 1px 2px oklch(20.5% 0.032 157deg / 6%);
+  --shadow-subtle: 0 1px 2px oklch(26.5% 0.038 119deg / 6%);
   --shadow-raised:
-    0 1px 2px oklch(20.5% 0.032 157deg / 5%), 0 4px 12px oklch(20.5% 0.032 157deg / 6%);
+    0 1px 2px oklch(26.5% 0.038 119deg / 5%), 0 4px 12px oklch(26.5% 0.038 119deg / 6%);
   --shadow-float:
-    0 2px 4px oklch(20.5% 0.032 157deg / 5%), 0 12px 32px oklch(20.5% 0.032 157deg / 9%);
-  --shadow-overlay: 0 24px 64px oklch(15.5% 0.024 158deg / 18%);
+    0 2px 4px oklch(26.5% 0.038 119deg / 5%), 0 12px 32px oklch(26.5% 0.038 119deg / 9%);
+  --shadow-overlay: 0 24px 64px oklch(19.5% 0.027 120deg / 18%);
+
+  /* -- Gradients. Deliberately low-contrast: they should read as light
+     falling across a surface, not as a coloured panel. -------------------- */
+  --gradient-page: linear-gradient(180deg, var(--sand-50) 0%, var(--sand-100) 100%);
+  --gradient-wash: linear-gradient(
+    172deg,
+    var(--sand-100) 0%,
+    var(--sand-50) 42%,
+    var(--apricot-50) 100%
+  );
+  --gradient-surface: linear-gradient(180deg, oklch(100% 0 0deg) 0%, var(--sand-50) 100%);
+  --gradient-brand: linear-gradient(152deg, var(--olive-800) 0%, var(--olive-950) 100%);
+  --gradient-ink: linear-gradient(160deg, var(--olive-900) 0%, oklch(15% 0.02 122deg) 100%);
+  --gradient-accent: linear-gradient(145deg, var(--apricot-200) 0%, var(--apricot-50) 100%);
+  /* A soft glow to sit behind headings and CTAs. */
+  --gradient-glow: radial-gradient(
+    60% 70% at 50% 0%,
+    oklch(86.5% 0.082 54deg / 34%) 0%,
+    transparent 70%
+  );
+  /* Hairlines that fade out at both ends — less mechanical than a solid rule. */
+  --gradient-hairline: linear-gradient(90deg, transparent, var(--sand-300) 18%, var(--sand-300) 82%, transparent);
 
   /* -- Motion ------------------------------------------------------------ */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -158,34 +160,42 @@
 }
 
 [data-theme='dark'] {
-  /* "Night garden" — pooled warm light against deep planting. */
-  --canvas: var(--green-950);
-  --canvas-subtle: oklch(18.5% 0.026 158deg);
-  --surface: var(--green-900);
-  --surface-raised: oklch(24% 0.036 157deg);
-  --ink: var(--stone-50);
-  --ink-muted: oklch(74% 0.014 120deg);
-  --ink-subtle: oklch(62% 0.016 130deg);
-  --ink-inverse: var(--green-950);
+  /* "Dusk" — the same garden after sunset. */
+  --canvas: var(--olive-950);
+  --canvas-subtle: oklch(23% 0.03 120deg);
+  --surface: var(--olive-900);
+  --surface-raised: oklch(30% 0.04 118deg);
+  --ink: var(--sand-50);
+  --ink-muted: oklch(76% 0.016 105deg);
+  --ink-subtle: oklch(64% 0.018 108deg);
+  --ink-inverse: var(--olive-950);
 
-  --brand: var(--green-300);
-  --brand-hover: var(--green-200);
-  --brand-soft: oklch(24% 0.04 156deg);
-  --brand-foreground: var(--green-950);
+  --brand: var(--olive-300);
+  --brand-hover: var(--olive-200);
+  --brand-soft: oklch(29% 0.042 117deg);
+  --brand-foreground: var(--olive-950);
 
-  --accent-base: var(--brass-400);
-  --accent-hover: var(--brass-300);
-  --accent-soft: oklch(26% 0.05 66deg);
-  --accent-foreground: var(--green-950);
+  --accent-base: var(--apricot-300);
+  --accent-hover: var(--apricot-200);
+  --accent-ink: var(--apricot-300);
+  --accent-soft: oklch(31% 0.055 48deg);
+  --accent-foreground: var(--olive-950);
 
   --line: oklch(100% 0 0deg / 12%);
   --line-strong: oklch(100% 0 0deg / 22%);
-  --line-inverse: oklch(15.5% 0.024 158deg / 18%);
+  --line-inverse: oklch(19.5% 0.027 120deg / 18%);
 
-  --secondary: oklch(26% 0.03 157deg);
-  --secondary-foreground: var(--stone-50);
-  --muted: oklch(24% 0.028 157deg);
+  --secondary: oklch(31% 0.036 118deg);
+  --secondary-foreground: var(--sand-50);
+  --muted: oklch(28% 0.032 118deg);
   --destructive: oklch(62% 0.17 27deg);
+
+  --gradient-page: linear-gradient(180deg, var(--olive-950) 0%, oklch(16% 0.024 122deg) 100%);
+  --gradient-wash: linear-gradient(172deg, oklch(23% 0.03 120deg) 0%, var(--olive-950) 100%);
+  --gradient-surface: linear-gradient(180deg, var(--olive-900) 0%, var(--olive-950) 100%);
+  --gradient-accent: linear-gradient(145deg, oklch(31% 0.055 48deg) 0%, oklch(24% 0.03 60deg) 100%);
+  --gradient-glow: radial-gradient(60% 70% at 50% 0%, oklch(86.5% 0.082 54deg / 12%) 0%, transparent 70%);
+  --gradient-hairline: linear-gradient(90deg, transparent, oklch(100% 0 0deg / 14%) 18%, oklch(100% 0 0deg / 14%) 82%, transparent);
 
   --shadow-subtle: 0 1px 2px oklch(0% 0 0deg / 30%);
   --shadow-raised: 0 1px 2px oklch(0% 0 0deg / 26%), 0 4px 12px oklch(0% 0 0deg / 32%);
@@ -210,38 +220,38 @@
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-fraunces);
 
-  /* Brand ramps — available as bg-green-700, text-brass-500 … */
-  --color-green-50: var(--green-50);
-  --color-green-100: var(--green-100);
-  --color-green-200: var(--green-200);
-  --color-green-300: var(--green-300);
-  --color-green-400: var(--green-400);
-  --color-green-500: var(--green-500);
-  --color-green-600: var(--green-600);
-  --color-green-700: var(--green-700);
-  --color-green-800: var(--green-800);
-  --color-green-900: var(--green-900);
-  --color-green-950: var(--green-950);
-  --color-brass-50: var(--brass-50);
-  --color-brass-100: var(--brass-100);
-  --color-brass-200: var(--brass-200);
-  --color-brass-300: var(--brass-300);
-  --color-brass-400: var(--brass-400);
-  --color-brass-500: var(--brass-500);
-  --color-brass-600: var(--brass-600);
-  --color-brass-700: var(--brass-700);
-  --color-brass-800: var(--brass-800);
-  --color-brass-900: var(--brass-900);
-  --color-stone-50: var(--stone-50);
-  --color-stone-100: var(--stone-100);
-  --color-stone-200: var(--stone-200);
-  --color-stone-300: var(--stone-300);
-  --color-stone-400: var(--stone-400);
-  --color-stone-500: var(--stone-500);
-  --color-stone-600: var(--stone-600);
-  --color-stone-700: var(--stone-700);
-  --color-stone-800: var(--stone-800);
-  --color-stone-900: var(--stone-900);
+  /* Brand ramps — available as bg-olive-700, text-apricot-500 … */
+  --color-olive-50: var(--olive-50);
+  --color-olive-100: var(--olive-100);
+  --color-olive-200: var(--olive-200);
+  --color-olive-300: var(--olive-300);
+  --color-olive-400: var(--olive-400);
+  --color-olive-500: var(--olive-500);
+  --color-olive-600: var(--olive-600);
+  --color-olive-700: var(--olive-700);
+  --color-olive-800: var(--olive-800);
+  --color-olive-900: var(--olive-900);
+  --color-olive-950: var(--olive-950);
+  --color-apricot-50: var(--apricot-50);
+  --color-apricot-100: var(--apricot-100);
+  --color-apricot-200: var(--apricot-200);
+  --color-apricot-300: var(--apricot-300);
+  --color-apricot-400: var(--apricot-400);
+  --color-apricot-500: var(--apricot-500);
+  --color-apricot-600: var(--apricot-600);
+  --color-apricot-700: var(--apricot-700);
+  --color-apricot-800: var(--apricot-800);
+  --color-apricot-900: var(--apricot-900);
+  --color-sand-50: var(--sand-50);
+  --color-sand-100: var(--sand-100);
+  --color-sand-200: var(--sand-200);
+  --color-sand-300: var(--sand-300);
+  --color-sand-400: var(--sand-400);
+  --color-sand-500: var(--sand-500);
+  --color-sand-600: var(--sand-600);
+  --color-sand-700: var(--sand-700);
+  --color-sand-800: var(--sand-800);
+  --color-sand-900: var(--sand-900);
 
   /* Semantic colours — the ones components should reach for */
   --color-canvas: var(--canvas);
@@ -286,30 +296,37 @@
   --color-warning: var(--warning);
   --color-error: var(--error);
 
-  /* Type scale — fluid, editorial. Display sizes lead with the serif. */
-  --text-display-1: clamp(3rem, 1.1rem + 7.6vw, 7rem);
-  --text-display-1--line-height: 0.94;
-  --text-display-1--letter-spacing: -0.03em;
-  --text-display-2: clamp(2.5rem, 1.3rem + 4.8vw, 4.75rem);
-  --text-display-2--line-height: 0.98;
-  --text-display-2--letter-spacing: -0.025em;
-  --text-h1: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
-  --text-h1--line-height: 1.04;
-  --text-h1--letter-spacing: -0.022em;
-  --text-h2: clamp(1.875rem, 1.35rem + 2.1vw, 2.875rem);
-  --text-h2--line-height: 1.1;
-  --text-h2--letter-spacing: -0.018em;
-  --text-h3: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem);
-  --text-h3--line-height: 1.18;
-  --text-h3--letter-spacing: -0.014em;
-  --text-h4: clamp(1.25rem, 1.12rem + 0.55vw, 1.5rem);
-  --text-h4--line-height: 1.28;
-  --text-h4--letter-spacing: -0.01em;
-  --text-lead: clamp(1.125rem, 1.04rem + 0.38vw, 1.375rem);
-  --text-lead--line-height: 1.55;
+  /* Type scale — fluid and deliberately large at the top end. A display
+     line is meant to dominate its viewport; the previous ceiling of 4.75rem
+     read as a large heading rather than as a statement. */
+  --text-display-1: clamp(3.25rem, 0.9rem + 9.4vw, 8.5rem);
+  --text-display-1--line-height: 0.92;
+  --text-display-1--letter-spacing: -0.035em;
+  --text-display-2: clamp(2.75rem, 1.15rem + 6.4vw, 6rem);
+  --text-display-2--line-height: 0.95;
+  --text-display-2--letter-spacing: -0.03em;
+  --text-h1: clamp(2.375rem, 1.35rem + 4.1vw, 4.25rem);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.028em;
+  --text-h2: clamp(1.9375rem, 1.3rem + 2.55vw, 3.125rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.022em;
+  --text-h3: clamp(1.5rem, 1.22rem + 1.4vw, 2.25rem);
+  --text-h3--line-height: 1.16;
+  --text-h3--letter-spacing: -0.016em;
+  --text-h4: clamp(1.25rem, 1.12rem + 0.62vw, 1.625rem);
+  --text-h4--line-height: 1.26;
+  --text-h4--letter-spacing: -0.012em;
+  --text-lead: clamp(1.125rem, 1.03rem + 0.45vw, 1.4375rem);
+  --text-lead--line-height: 1.52;
+  --text-lead--letter-spacing: -0.008em;
+  /* 17px body. A notch above the 16px default reads as more considered and
+     measurably improves comfort on long service copy. */
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.65;
   --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1.2;
-  --text-eyebrow--letter-spacing: 0.14em;
+  --text-eyebrow--letter-spacing: 0.16em;
 
   /* Shape */
   --radius-sm: calc(var(--radius) * 0.5);
@@ -322,6 +339,9 @@
   --shadow-raised: var(--shadow-raised);
   --shadow-float: var(--shadow-float);
   --shadow-overlay: var(--shadow-overlay);
+
+  /* Gradients — consumed as bg-(image:--gradient-wash) */
+  --color-accent-ink: var(--accent-ink);
 
   /* Motion */
   --ease-out-expo: var(--ease-out-expo);
@@ -352,9 +372,21 @@
   }
 
   body {
-    @apply bg-canvas text-ink flex min-h-[100svh] flex-col;
+    @apply text-ink flex min-h-[100svh] flex-col;
+    background-color: var(--canvas);
+    background-image: var(--gradient-page);
+    background-attachment: fixed;
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-size: var(--text-base);
     text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
+  }
+
+  /* The display face is variable: let the optical-size axis track the rendered
+     size, and soften the terminals slightly so large settings feel less rigid. */
+  .font-display {
+    font-optical-sizing: auto;
+    font-variation-settings: 'SOFT' 28, 'WONK' 0;
   }
 
   /* Headings are unstyled by default so primitives own the scale entirely. */
@@ -369,8 +401,8 @@
   }
 
   ::selection {
-    background: var(--brass-200);
-    color: var(--green-950);
+    background: var(--apricot-200);
+    color: var(--olive-950);
   }
 
   :focus-visible {
@@ -395,6 +427,40 @@
 }
 
 @layer utilities {
+  /* Gradient surfaces. Kept as utilities rather than inline styles so the
+     definitions stay with the tokens. */
+  .bg-gradient-wash {
+    background-image: var(--gradient-wash);
+  }
+
+  .bg-gradient-surface {
+    background-image: var(--gradient-surface);
+  }
+
+  .bg-gradient-brand {
+    background-image: var(--gradient-brand);
+  }
+
+  .bg-gradient-ink {
+    background-image: var(--gradient-ink);
+  }
+
+  .bg-gradient-accent {
+    background-image: var(--gradient-accent);
+  }
+
+  /* A soft pool of warm light. Decorative only — always aria-hidden. */
+  .bg-gradient-glow {
+    background-image: var(--gradient-glow);
+  }
+
+  /* A rule that fades at both ends. Replaces hard hairlines between bands. */
+  .rule-soft {
+    border: 0;
+    block-size: 1px;
+    background-image: var(--gradient-hairline);
+  }
+
   .container {
     width: 100%;
     margin-inline: auto;

@@ -24,7 +24,7 @@ export const headingVariants = cva('font-display text-balance-pretty', {
       default: 'text-ink',
       muted: 'text-ink-muted',
       brand: 'text-brand',
-      inverse: 'text-stone-50',
+      inverse: 'text-sand-50',
       inherit: '',
     },
   },

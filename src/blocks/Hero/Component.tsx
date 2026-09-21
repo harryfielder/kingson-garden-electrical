@@ -14,16 +14,16 @@ const heightClasses: Record<string, string> = {
 }
 
 const overlayClasses: Record<string, string> = {
-  gradient: 'bg-gradient-to-t from-green-950/90 via-green-950/45 to-green-950/20',
-  scrim: 'bg-green-950/55',
-  strong: 'bg-green-950/72',
+  gradient: 'bg-gradient-to-t from-olive-950/90 via-olive-950/45 to-olive-950/20',
+  scrim: 'bg-olive-950/55',
+  strong: 'bg-olive-950/72',
   none: '',
 }
 
 const textureClasses: Record<string, string> = {
-  forest: 'bg-green-900',
-  ink: 'bg-green-950',
-  stone: 'bg-stone-100',
+  forest: 'bg-gradient-brand',
+  ink: 'bg-gradient-ink',
+  stone: 'bg-gradient-wash',
 }
 
 /**
@@ -59,7 +59,7 @@ export const HeroBlockComponent: React.FC<HeroBlockProps> = ({
         '-mt-20 relative isolate flex w-full flex-col justify-end overflow-hidden',
         heightClasses[height || 'half'],
         !hasMedia && textureClasses[texture || 'forest'],
-        onDark ? 'text-stone-50' : 'text-green-950',
+        onDark ? 'text-sand-50' : 'text-olive-950',
       )}
     >
       {background === 'image' && image && (
@@ -98,11 +98,14 @@ export const HeroBlockComponent: React.FC<HeroBlockProps> = ({
         />
       )}
 
+      {/* A soft pool of warm light behind the headline. Purely decorative. */}
+      <div aria-hidden className="bg-gradient-glow pointer-events-none absolute inset-x-0 top-0 -z-[5] h-2/3" />
+
       <Container className="relative z-10">
-        <div className={cn('max-w-3xl', centered && 'mx-auto max-w-4xl text-center')}>
+        <div className={cn('max-w-4xl', centered && 'mx-auto max-w-5xl text-center')}>
           <Stack gap="lg" align={centered ? 'center' : 'start'}>
             {eyebrow && (
-              <Eyebrow tone={onDark ? 'inverse' : 'accent'} rule={!centered}>
+              <Eyebrow tone={onDark ? 'inverse' : 'accent'}>
                 {eyebrow}
               </Eyebrow>
             )}

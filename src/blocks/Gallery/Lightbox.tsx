@@ -85,14 +85,14 @@ export const Lightbox: React.FC<{
     <div
       aria-label="Image gallery"
       aria-modal="true"
-      className="fixed inset-0 z-200 flex flex-col bg-green-950/95 backdrop-blur-sm"
+      className="fixed inset-0 z-200 flex flex-col bg-olive-950/95 backdrop-blur-sm"
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose()
       }}
       ref={dialogRef}
       role="dialog"
     >
-      <div className="flex items-center justify-between gap-4 p-4 text-stone-50">
+      <div className="flex items-center justify-between gap-4 p-4 text-sand-50">
         <span className="font-mono text-xs tabular-nums opacity-70">
           {index + 1} / {items.length}
         </span>
@@ -111,7 +111,7 @@ export const Lightbox: React.FC<{
         {hasMultiple && (
           <button
             aria-label="Previous image"
-            className="absolute left-2 z-10 rounded-full bg-white/10 p-3 text-stone-50 transition-colors hover:bg-white/20 md:left-6"
+            className="absolute left-2 z-10 rounded-full bg-white/10 p-3 text-sand-50 transition-colors hover:bg-white/20 md:left-6"
             onClick={previous}
             type="button"
           >
@@ -127,7 +127,7 @@ export const Lightbox: React.FC<{
             imgClassName="max-h-[76svh] w-auto object-contain"
           />
           {item.caption && (
-            <figcaption className="max-w-2xl text-center text-sm text-stone-50/75">
+            <figcaption className="max-w-2xl text-center text-sm text-sand-50/75">
               {item.caption}
             </figcaption>
           )}
@@ -136,7 +136,7 @@ export const Lightbox: React.FC<{
         {hasMultiple && (
           <button
             aria-label="Next image"
-            className="absolute right-2 z-10 rounded-full bg-white/10 p-3 text-stone-50 transition-colors hover:bg-white/20 md:right-6"
+            className="absolute right-2 z-10 rounded-full bg-white/10 p-3 text-sand-50 transition-colors hover:bg-white/20 md:right-6"
             onClick={next}
             type="button"
           >

@@ -53,7 +53,7 @@ export const NewsletterForm: React.FC<{
 
   if (status === 'done') {
     return (
-      <p className="inline-flex items-center gap-2 text-sm text-brass-300" role="status">
+      <p className="inline-flex items-center gap-2 text-sm text-apricot-300" role="status">
         <Check aria-hidden className="size-4" />
         Thanks — you’re on the list.
       </p>
@@ -68,7 +68,7 @@ export const NewsletterForm: React.FC<{
         </label>
         <input
           autoComplete="email"
-          className="h-11 w-full rounded-md border border-white/20 bg-white/5 px-3.5 text-sm text-stone-50 placeholder:text-stone-50/45 outline-none focus-visible:border-brass-400"
+          className="h-11 w-full rounded-md border border-white/20 bg-white/5 px-3.5 text-sm text-sand-50 placeholder:text-sand-50/45 outline-none focus-visible:border-apricot-400"
           id="newsletter-email"
           name="email"
           placeholder="you@example.com"
@@ -77,7 +77,7 @@ export const NewsletterForm: React.FC<{
         />
         <button
           aria-label="Sign up"
-          className="inline-flex h-11 shrink-0 items-center justify-center rounded-md bg-brass-500 px-4 text-green-950 transition-colors hover:bg-brass-400 disabled:opacity-50"
+          className="inline-flex h-11 shrink-0 items-center justify-center rounded-md bg-apricot-500 px-4 text-olive-950 transition-colors hover:bg-apricot-400 disabled:opacity-50"
           disabled={status === 'loading'}
           type="submit"
         >
@@ -85,7 +85,7 @@ export const NewsletterForm: React.FC<{
         </button>
       </div>
 
-      {consentText && <p className="text-xs text-stone-50/55">{consentText}</p>}
+      {consentText && <p className="text-xs text-sand-50/55">{consentText}</p>}
 
       {status === 'error' && message && (
         <p className="text-xs text-red-300" role="alert">

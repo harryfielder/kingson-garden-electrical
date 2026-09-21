@@ -52,7 +52,7 @@ export async function Footer() {
               <address className="mt-2 flex flex-col gap-3 not-italic">
                 {settings.phone && (
                   <a
-                    className="flex items-center gap-3 text-sm text-stone-50/80 transition-colors hover:text-brass-300"
+                    className="flex items-center gap-3 text-sm text-sand-50/80 transition-colors hover:text-apricot-300"
                     href={telHref}
                   >
                     <Phone aria-hidden className="size-4 shrink-0" />
@@ -61,7 +61,7 @@ export async function Footer() {
                 )}
                 {settings.email && (
                   <a
-                    className="flex items-center gap-3 text-sm text-stone-50/80 transition-colors hover:text-brass-300"
+                    className="flex items-center gap-3 text-sm text-sand-50/80 transition-colors hover:text-apricot-300"
                     href={`mailto:${settings.email}`}
                   >
                     <Mail aria-hidden className="size-4 shrink-0" />
@@ -69,7 +69,7 @@ export async function Footer() {
                   </a>
                 )}
                 {(address?.streetAddress || address?.addressLocality) && (
-                  <span className="flex items-start gap-3 text-sm text-stone-50/80">
+                  <span className="flex items-start gap-3 text-sm text-sand-50/80">
                     <MapPin aria-hidden className="mt-0.5 size-4 shrink-0" />
                     <span>
                       {[
@@ -89,12 +89,12 @@ export async function Footer() {
 
           {(footerData.columns || []).map((column, index) => (
             <div className="lg:col-span-2" key={index}>
-              <p className="font-mono text-eyebrow uppercase text-brass-300">{column.heading}</p>
+              <p className="font-mono text-eyebrow uppercase text-apricot-300">{column.heading}</p>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {(column.links || []).map((entry, linkIndex) => (
                   <li key={linkIndex}>
                     <Link
-                      className="text-sm text-stone-50/80 transition-colors hover:text-brass-300"
+                      className="text-sm text-sand-50/80 transition-colors hover:text-apricot-300"
                       href={hrefFor(entry.link)}
                     >
                       {entry.link?.label}
@@ -136,7 +136,7 @@ export async function Footer() {
                     imgClassName="h-10 w-auto opacity-70 transition-opacity hover:opacity-100"
                   />
                 ) : (
-                  <span className="text-xs text-stone-50/60" key={index}>
+                  <span className="text-xs text-sand-50/60" key={index}>
                     {accreditation.name}
                     {accreditation.registrationNumber ? ` · ${accreditation.registrationNumber}` : ''}
                   </span>
@@ -158,7 +158,7 @@ export async function Footer() {
             {(footerData.legalLinks || []).map((entry, index) => (
               <li key={index}>
                 <Link
-                  className="text-xs text-stone-50/70 transition-colors hover:text-brass-300"
+                  className="text-xs text-sand-50/70 transition-colors hover:text-apricot-300"
                   href={hrefFor(entry.link)}
                 >
                   {entry.link?.label}
@@ -172,7 +172,7 @@ export async function Footer() {
               {settings.socialProfiles.map((profile, index) => (
                 <li key={index}>
                   <a
-                    className="text-xs text-stone-50/70 capitalize transition-colors hover:text-brass-300"
+                    className="text-xs text-sand-50/70 capitalize transition-colors hover:text-apricot-300"
                     href={profile.url}
                     rel="noopener noreferrer me"
                     target="_blank"

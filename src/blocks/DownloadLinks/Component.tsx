@@ -84,7 +84,7 @@ export const DownloadLinksBlockComponent: React.FC<DownloadLinksBlockProps> = as
                 <span
                   className={cn(
                     'inline-flex size-11 shrink-0 items-center justify-center rounded-full',
-                    inverse ? 'bg-white/10 text-brass-300' : 'bg-brand-soft text-brand',
+                    inverse ? 'bg-white/10 text-apricot-300' : 'bg-brand-soft text-brand',
                   )}
                 >
                   <FileText aria-hidden className="size-5" />
@@ -120,7 +120,7 @@ export const DownloadLinksBlockComponent: React.FC<DownloadLinksBlockProps> = as
                   aria-hidden
                   className={cn(
                     'size-5 shrink-0 transition-transform group-hover:translate-y-0.5',
-                    inverse ? 'text-brass-300' : 'text-brass-600',
+                    inverse ? 'text-apricot-300' : 'text-apricot-600',
                     asCards && 'hidden',
                   )}
                 />

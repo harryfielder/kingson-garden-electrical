@@ -615,7 +615,7 @@ export interface TextMediaBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -820,6 +820,10 @@ export interface CardsBlock {
       }[]
     | null;
   cardStyle?: ('image' | 'overlay' | 'text') | null;
+  /**
+   * Pick a portrait crop when the source photography is portrait — a landscape crop discards most of the frame.
+   */
+  imageRatio?: ('auto' | '3/4' | '2/3' | 'square' | '4/3' | '3/2') | null;
   links?:
     | {
         link: {
@@ -871,7 +875,7 @@ export interface CardsBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1176,7 +1180,7 @@ export interface FeatureRowBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1346,7 +1350,7 @@ export interface GalleryBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1387,7 +1391,7 @@ export interface TestimonialCarouselBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1478,7 +1482,7 @@ export interface FaqBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1550,7 +1554,7 @@ export interface CallToActionBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1585,7 +1589,7 @@ export interface FormBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1832,7 +1836,7 @@ export interface GatedDownloadBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1866,7 +1870,7 @@ export interface DownloadLinksBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1950,7 +1954,7 @@ export interface ContentBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -1968,7 +1972,7 @@ export interface MediaBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -2000,7 +2004,7 @@ export interface ArchiveBlock {
    * Controls the background and vertical spacing of this section.
    */
   appearance?: {
-    tone?: ('canvas' | 'subtle' | 'surface' | 'brand' | 'ink' | 'accent') | null;
+    tone?: ('canvas' | 'subtle' | 'wash' | 'surface' | 'brand' | 'ink' | 'accent') | null;
     spacing?: ('none' | 'sm' | 'md' | 'lg') | null;
   };
   id?: string | null;
@@ -2538,6 +2542,7 @@ export interface CardsBlockSelect<T extends boolean = true> {
         id?: T;
       };
   cardStyle?: T;
+  imageRatio?: T;
   links?:
     | T
     | {

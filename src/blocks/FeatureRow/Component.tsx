@@ -58,7 +58,7 @@ export const FeatureRowBlockComponent: React.FC<FeatureRowBlockProps> = ({
                     aria-hidden
                     className={cn(
                       'font-display text-h2 leading-none',
-                      inverse ? 'text-brass-300' : 'text-brass-500',
+                      inverse ? 'text-apricot-300' : 'text-apricot-500',
                     )}
                   >
                     {String(i + 1).padStart(2, '0')}
@@ -67,7 +67,7 @@ export const FeatureRowBlockComponent: React.FC<FeatureRowBlockProps> = ({
                   <span
                     className={cn(
                       'inline-flex size-11 items-center justify-center rounded-full',
-                      inverse ? 'bg-white/10 text-brass-300' : 'bg-brand-soft text-brand',
+                      inverse ? 'bg-white/10 text-apricot-300' : 'bg-brand-soft text-brand',
                     )}
                   >
                     <Icon className="size-5" name={feature.icon} />

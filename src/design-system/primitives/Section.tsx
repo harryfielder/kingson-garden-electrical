@@ -15,9 +15,11 @@ export const sectionVariants = cva('relative w-full', {
       canvas: 'bg-canvas text-ink',
       subtle: 'bg-canvas-subtle text-ink',
       surface: 'bg-surface text-ink',
-      brand: 'bg-green-900 text-stone-50 [--line:var(--line-inverse)]',
-      ink: 'bg-green-950 text-stone-50 [--line:var(--line-inverse)]',
-      accent: 'bg-brass-50 text-green-950',
+      /** A soft wash from sand into apricot — the default for quieter bands. */
+      wash: 'bg-gradient-wash text-ink',
+      brand: 'bg-gradient-brand text-sand-50 [--line:var(--line-inverse)]',
+      ink: 'bg-gradient-ink text-sand-50 [--line:var(--line-inverse)]',
+      accent: 'bg-gradient-accent text-olive-950',
       none: '',
     },
     spacing: {

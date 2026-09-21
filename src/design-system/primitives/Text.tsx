@@ -15,7 +15,7 @@ export const textVariants = cva('', {
       muted: 'text-ink-muted',
       subtle: 'text-ink-subtle',
       brand: 'text-brand',
-      inverse: 'text-stone-50/80',
+      inverse: 'text-sand-50/80',
       inherit: '',
     },
     weight: { normal: 'font-normal', medium: 'font-medium', semibold: 'font-semibold' },

@@ -34,7 +34,7 @@ export const GatedDownloadBlockComponent: React.FC<GatedDownloadBlockProps> = ({
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
           <Stack gap="lg">
-            {eyebrow && <Eyebrow tone={inverse ? 'inverse' : 'accent'} rule>{eyebrow}</Eyebrow>}
+            {eyebrow && <Eyebrow tone={inverse ? 'inverse' : 'accent'}>{eyebrow}</Eyebrow>}
 
             <Heading
               as={(headingLevel as 'h2') || 'h2'}
@@ -58,7 +58,7 @@ export const GatedDownloadBlockComponent: React.FC<GatedDownloadBlockProps> = ({
                       aria-hidden
                       className={cn(
                         'mt-0.5 size-5 shrink-0',
-                        inverse ? 'text-brass-300' : 'text-brass-600',
+                        inverse ? 'text-apricot-300' : 'text-apricot-600',
                       )}
                     />
                     <Text as="span" tone={inverse ? 'inverse' : 'muted'}>

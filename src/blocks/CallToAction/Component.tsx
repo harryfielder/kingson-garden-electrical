@@ -29,7 +29,13 @@ export const CallToActionBlock: React.FC<CTABlockProps> = async ({
 
   const content = (
     <div className={cn('flex flex-col gap-8', !centered && 'md:flex-row md:items-center md:justify-between')}>
-      <Stack gap="sm" className={cn(centered && 'mx-auto max-w-3xl text-center')}>
+      {/* The eyebrow is inline-flex, so `text-center` alone leaves it hard left.
+          Centring the flex items is what actually moves it. */}
+      <Stack
+        gap="sm"
+        align={centered ? 'center' : 'stretch'}
+        className={cn(centered && 'mx-auto max-w-3xl text-center')}
+      >
         {eyebrow && <Eyebrow tone={inverse ? 'inverse' : 'accent'}>{eyebrow}</Eyebrow>}
         <Heading as="h2" size="h2" tone={inverse ? 'inverse' : 'default'}>
           {heading}
@@ -55,7 +61,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = async ({
           <a
             className={cn(
               'inline-flex items-center gap-2 text-base font-medium underline-offset-4 hover:underline',
-              inverse ? 'text-stone-50' : 'text-brand',
+              inverse ? 'text-sand-50' : 'text-brand',
             )}
             href={`tel:${settings.phoneE164 || settings.phone.replace(/\s/g, '')}`}
           >
@@ -79,7 +85,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = async ({
               imgClassName="absolute inset-0 -z-20 h-full w-full object-cover"
               size="100vw"
             />
-            <div aria-hidden className="absolute inset-0 -z-10 bg-green-950/72" />
+            <div aria-hidden className="absolute inset-0 -z-10 bg-olive-950/72" />
           </>
         )}
         <div className="relative z-10">{content}</div>

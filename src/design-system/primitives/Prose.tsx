@@ -15,10 +15,10 @@ export const proseVariants = cva(
     'prose-h3:text-h3 prose-h3:mt-10 prose-h3:mb-4',
     'prose-h4:text-h4 prose-h4:mt-8 prose-h4:mb-3 prose-h4:font-medium',
     'prose-p:text-ink-muted prose-p:leading-relaxed',
-    'prose-li:text-ink-muted prose-li:marker:text-brass-500',
+    'prose-li:text-ink-muted prose-li:marker:text-apricot-500',
     'prose-strong:text-ink prose-strong:font-semibold',
-    'prose-a:text-brand prose-a:underline prose-a:underline-offset-4 prose-a:decoration-brass-400 hover:prose-a:decoration-brass-600',
-    'prose-blockquote:border-l-2 prose-blockquote:border-brass-400 prose-blockquote:font-display prose-blockquote:not-italic prose-blockquote:text-ink prose-blockquote:text-h4',
+    'prose-a:text-brand prose-a:underline prose-a:underline-offset-4 prose-a:decoration-apricot-400 hover:prose-a:decoration-apricot-600',
+    'prose-blockquote:border-l-2 prose-blockquote:border-apricot-400 prose-blockquote:font-display prose-blockquote:not-italic prose-blockquote:text-ink prose-blockquote:text-h4',
     'prose-img:rounded-md',
     'prose-hr:border-line',
     'prose-figcaption:text-ink-subtle prose-figcaption:text-sm',
@@ -31,7 +31,7 @@ export const proseVariants = cva(
       tone: {
         default: '',
         inverse:
-          'prose-headings:text-stone-50 prose-p:text-stone-50/80 prose-li:text-stone-50/80 prose-strong:text-stone-50 prose-a:text-brass-300 prose-blockquote:text-stone-50',
+          'prose-headings:text-sand-50 prose-p:text-sand-50/80 prose-li:text-sand-50/80 prose-strong:text-sand-50 prose-a:text-apricot-300 prose-blockquote:text-sand-50',
       },
     },
     defaultVariants: { size: 'base', tone: 'default' },

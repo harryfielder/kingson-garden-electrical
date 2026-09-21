@@ -31,20 +31,20 @@ const buttonVariants = cva(
         default: 'rounded-md bg-brand text-brand-foreground shadow-subtle hover:bg-brand-hover active:translate-y-px',
         /** Highest-emphasis action. Brass — used once per view at most. */
         accent:
-          'rounded-md bg-brass-500 text-green-950 shadow-subtle hover:bg-brass-400 active:translate-y-px',
+          'rounded-md bg-apricot-500 text-olive-950 shadow-subtle hover:bg-apricot-400 active:translate-y-px',
         outline:
           'rounded-md border border-line-strong bg-transparent text-ink hover:border-brand hover:bg-brand-soft hover:text-brand',
         /** For use on brand/ink sections where the background is dark. */
         inverse:
-          'rounded-md bg-stone-50 text-green-950 shadow-subtle hover:bg-white active:translate-y-px',
+          'rounded-md bg-sand-50 text-olive-950 shadow-subtle hover:bg-white active:translate-y-px',
         inverseOutline:
-          'rounded-md border border-white/30 bg-transparent text-stone-50 hover:border-brass-300 hover:bg-white/10 hover:text-brass-200',
+          'rounded-md border border-white/30 bg-transparent text-sand-50 hover:border-apricot-300 hover:bg-white/10 hover:text-apricot-200',
         secondary: 'rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'rounded-md text-ink hover:bg-canvas-subtle hover:text-brand',
         destructive:
           'rounded-md bg-destructive text-destructive-foreground hover:bg-destructive/90',
         /** Text-only. Underline is offset so it never clips descenders. */
-        link: 'text-brand underline decoration-brass-400 underline-offset-4 hover:decoration-brass-600',
+        link: 'text-brand underline decoration-apricot-400 underline-offset-4 hover:decoration-apricot-600',
       },
       size: {
         clear: '',

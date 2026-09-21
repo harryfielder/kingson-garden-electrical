@@ -45,7 +45,7 @@ export const PageHeader: React.FC<{
           </nav>
         )}
 
-        {eyebrow && <Eyebrow rule>{eyebrow}</Eyebrow>}
+        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
 
         <Heading as="h1" size="h1">
           {title}

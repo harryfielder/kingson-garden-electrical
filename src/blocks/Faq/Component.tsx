@@ -59,7 +59,7 @@ export const FaqBlockComponent: React.FC<FaqBlockProps> = ({
                     aria-expanded={expanded}
                     className={cn(
                       'flex w-full items-center justify-between gap-6 py-6 text-left transition-colors',
-                      inverse ? 'text-stone-50 hover:text-brass-200' : 'text-ink hover:text-brand',
+                      inverse ? 'text-sand-50 hover:text-apricot-200' : 'text-ink hover:text-brand',
                     )}
                     id={buttonId}
                     onClick={() => setOpen(expanded ? null : i)}
@@ -71,7 +71,7 @@ export const FaqBlockComponent: React.FC<FaqBlockProps> = ({
                       className={cn(
                         'size-5 shrink-0 transition-transform duration-(--duration-base) ease-(--ease-out-expo)',
                         expanded && 'rotate-45',
-                        inverse ? 'text-brass-300' : 'text-brass-600',
+                        inverse ? 'text-apricot-300' : 'text-apricot-600',
                       )}
                     />
                   </button>

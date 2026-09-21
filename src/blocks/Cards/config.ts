@@ -113,13 +113,38 @@ export const CardsBlock: Block = {
       ],
     },
     {
-      name: 'cardStyle',
-      type: 'select',
-      defaultValue: 'image',
-      options: [
-        { label: 'Image on top', value: 'image' },
-        { label: 'Image fills card, text overlaid', value: 'overlay' },
-        { label: 'Text only', value: 'text' },
+      type: 'row',
+      fields: [
+        {
+          name: 'cardStyle',
+          type: 'select',
+          admin: { width: '50%' },
+          defaultValue: 'image',
+          options: [
+            { label: 'Image on top', value: 'image' },
+            { label: 'Image fills card, text overlaid', value: 'overlay' },
+            { label: 'Text only', value: 'text' },
+          ],
+        },
+        {
+          name: 'imageRatio',
+          type: 'select',
+          admin: {
+            width: '50%',
+            condition: (_, s) => s?.cardStyle !== 'text',
+            description:
+              'Pick a portrait crop when the source photography is portrait — a landscape crop discards most of the frame.',
+          },
+          defaultValue: 'auto',
+          options: [
+            { label: 'Automatic (suits the card style)', value: 'auto' },
+            { label: 'Portrait 3:4', value: '3/4' },
+            { label: 'Tall portrait 2:3', value: '2/3' },
+            { label: 'Square', value: 'square' },
+            { label: 'Landscape 4:3', value: '4/3' },
+            { label: 'Landscape 3:2', value: '3/2' },
+          ],
+        },
       ],
     },
     linkGroup({

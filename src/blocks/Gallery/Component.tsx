@@ -115,7 +115,7 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
                   <figcaption
                     className={cn(
                       'mt-2 text-sm',
-                      inverse ? 'text-stone-50/70' : 'text-ink-subtle',
+                      inverse ? 'text-sand-50/70' : 'text-ink-subtle',
                     )}
                   >
                     {entry.caption}
@@ -138,7 +138,7 @@ export const GalleryBlockComponent: React.FC<GalleryBlockProps> = ({
                   <figcaption
                     className={cn(
                       'mt-2 text-sm',
-                      inverse ? 'text-stone-50/70' : 'text-ink-subtle',
+                      inverse ? 'text-sand-50/70' : 'text-ink-subtle',
                     )}
                   >
                     {entry.caption}
