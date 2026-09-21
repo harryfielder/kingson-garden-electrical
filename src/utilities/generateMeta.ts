@@ -61,7 +61,9 @@ export const generateMeta = async ({
   const noindex = Boolean(doc?.meta?.noindex)
 
   return {
-    title,
+    // `absolute` stops Next applying the root layout's title template on top of
+    // a title that already carries the business name.
+    title: { absolute: title },
     description,
     alternates: { canonical },
     robots: noindex

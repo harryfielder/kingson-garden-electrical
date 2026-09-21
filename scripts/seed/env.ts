@@ -13,5 +13,5 @@ import { fileURLToPath } from 'url'
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 
 for (const file of ['.env.local', '.env']) {
-  dotenv.config({ path: path.join(root, file), override: false, quiet: true })
+  dotenv.config({ path: path.join(root, file), override: false })
 }
