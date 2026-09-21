@@ -35,7 +35,13 @@ export const plugins: Plugin[] = [
     // disk is not an option on Vercel — the filesystem is ephemeral, so media
     // uploaded through the admin panel would vanish on the next deploy.
     enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
-    collections: { media: true, downloads: true },
+    collections: {
+      // Serve straight from the Blob CDN rather than proxying every request
+      // through Payload's file route. On an image-led site that removes a
+      // serverless invocation per asset; both collections are public anyway.
+      media: { disablePayloadAccessControl: true },
+      downloads: { disablePayloadAccessControl: true },
+    },
     token: process.env.BLOB_READ_WRITE_TOKEN,
   }),
 
