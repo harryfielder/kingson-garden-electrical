@@ -8,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import RichText from '@/components/RichText'
 import { Button, Heading, Stack, Surface, Text } from '@/design-system'
+import { trackEvent } from '@/utilities/analytics'
 import { getClientSideURL } from '@/utilities/getURL'
 import { cn } from '@/utilities/ui'
 
@@ -57,6 +58,7 @@ export const FormBlock: React.FC<{ id?: string } & FormBlockType> = ({
 }) => {
   const {
     id: formID,
+    title: formTitle,
     confirmationMessage,
     confirmationType,
     redirect,
@@ -123,6 +125,7 @@ export const FormBlock: React.FC<{ id?: string } & FormBlockType> = ({
 
           setIsLoading(false)
           setHasSubmitted(true)
+          trackEvent('generate_lead', { form_id: String(formID), form_name: formTitle })
 
           if (confirmationType === 'redirect' && redirect?.url) router.push(redirect.url)
         } catch {
@@ -133,7 +136,7 @@ export const FormBlock: React.FC<{ id?: string } & FormBlockType> = ({
 
       void submitForm()
     },
-    [confirmationType, formID, redirect, router],
+    [confirmationType, formID, formTitle, redirect, router],
   )
 
   if (!formFromProps) return null

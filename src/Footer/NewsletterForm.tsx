@@ -3,6 +3,7 @@
 import { ArrowRight, Check } from 'lucide-react'
 import React, { useState } from 'react'
 
+import { trackEvent } from '@/utilities/analytics'
 import { getClientSideURL } from '@/utilities/getURL'
 
 /**
@@ -45,6 +46,7 @@ export const NewsletterForm: React.FC<{
       }
 
       setStatus('done')
+      trackEvent('sign_up', { method: 'newsletter' })
     } catch {
       setStatus('error')
       setMessage('Sign-up failed. Please try again.')

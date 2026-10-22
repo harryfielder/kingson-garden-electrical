@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 
 import RichText from '@/components/RichText'
 import { Button, Stack, Text } from '@/design-system'
+import { trackEvent } from '@/utilities/analytics'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 type Props = {
@@ -62,6 +63,10 @@ export const GatedDownloadForm: React.FC<Props> = ({
 
       setFileUrl(result.url)
       setStatus('done')
+      trackEvent('download_unlock', {
+        download_id: downloadId,
+        marketing_consent: form.get('marketingConsent') === 'on',
+      })
     } catch {
       setStatus('error')
       setMessage('Something went wrong. Please try again.')

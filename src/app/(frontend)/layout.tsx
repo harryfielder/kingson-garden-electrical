@@ -6,6 +6,7 @@ import { draftMode } from 'next/headers'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { JsonLd } from '@/components/JsonLd'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
@@ -38,6 +39,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // declared on every page and can be referenced by @id from page-level graphs.
   const siteGraph = buildGraph([organisationSchema(settings), websiteSchema(settings)])
 
+  // Production only, and never while an editor is previewing a draft, so
+  // analytics reflects real visitors rather than our own testing.
+  const enableAnalytics = process.env.VERCEL_ENV === 'production' && !isEnabled
+
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable, fraunces.variable)}
@@ -66,6 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </main>
           <Footer />
         </Providers>
+        {enableAnalytics && <GoogleAnalytics />}
       </body>
     </html>
   )
