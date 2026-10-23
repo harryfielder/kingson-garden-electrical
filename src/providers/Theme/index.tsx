@@ -5,7 +5,7 @@ import React, { createContext, useCallback, use, useEffect, useState } from 'rea
 import type { Theme, ThemeContextType } from './types'
 
 import canUseDOM from '@/utilities/canUseDOM'
-import { defaultTheme, themeLocalStorageKey } from './shared'
+import { defaultTheme, themeLocalStorageKey, themeToggleEnabled } from './shared'
 import { themeIsValid } from './types'
 
 const initialContext: ThemeContextType = {
@@ -39,7 +39,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
    * hydration despite never having asked for it.
    */
   useEffect(() => {
-    const preference = window.localStorage.getItem(themeLocalStorageKey)
+    const preference = themeToggleEnabled ? window.localStorage.getItem(themeLocalStorageKey) : null
     const themeToSet: Theme = themeIsValid(preference) ? preference : defaultTheme
 
     document.documentElement.setAttribute('data-theme', themeToSet)

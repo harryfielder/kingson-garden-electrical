@@ -53,10 +53,6 @@ const emailAdapter = process.env.SMTP_HOST
 
 export default buildConfig({
   admin: {
-    components: {
-      beforeLogin: ['@/components/BeforeLogin'],
-      beforeDashboard: ['@/components/BeforeDashboard'],
-    },
     importMap: { baseDir: path.resolve(dirname) },
     user: Users.slug,
     livePreview: {

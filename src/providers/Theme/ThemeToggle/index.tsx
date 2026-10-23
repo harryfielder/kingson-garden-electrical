@@ -5,6 +5,7 @@ import React from 'react'
 
 import { cn } from '@/utilities/ui'
 import { useTheme } from '..'
+import { themeToggleEnabled } from '../shared'
 
 /**
  * Light/dark switch.
@@ -21,9 +22,13 @@ import { useTheme } from '..'
  * theme, which React reports as a mismatch and repairs by discarding the
  * tree. The current theme is read from the document at click time for the
  * same reason.
+ *
+ * Renders nothing when `NEXT_PUBLIC_THEME_TOGGLE=false` (see `shared.ts`).
  */
 export const ThemeToggle: React.FC<{ className?: string }> = ({ className }) => {
   const { setTheme } = useTheme()
+
+  if (!themeToggleEnabled) return null
 
   return (
     <button

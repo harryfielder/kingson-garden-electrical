@@ -12,6 +12,7 @@ import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
+import { defaultTheme } from '@/providers/Theme/shared'
 import { buildGraph, organisationSchema, websiteSchema } from '@/seo/schema'
 import { getSiteSettings } from '@/utilities/getSiteSettings'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -46,7 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable, fraunces.variable)}
-      data-theme="light"
+      data-theme={defaultTheme}
       lang="en-GB"
       suppressHydrationWarning
     >
