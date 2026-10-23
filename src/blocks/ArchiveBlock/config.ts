@@ -2,6 +2,7 @@ import type { Block } from 'payload'
 
 import { appearanceField } from '@/fields/appearance'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /**
  * Paginated listing of a collection. Use `cards` for a fixed-length row; this
@@ -11,6 +12,7 @@ export const Archive: Block = {
   slug: 'archive',
   dbName: ({ tableName }) => `${tableName}_b_arch`,
   interfaceName: 'ArchiveBlock',
+  admin: { images: blockThumbnail('archive', 'A grid of the latest posts from a collection') },
   labels: { singular: 'Archive', plural: 'Archives' },
   fields: [
     ...sectionHeadingFields(),

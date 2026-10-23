@@ -8,6 +8,7 @@ import {
 
 import { appearanceField } from '@/fields/appearance'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /**
  * Question-and-answer accordion.
@@ -19,6 +20,7 @@ export const FaqBlock: Block = {
   slug: 'faq',
   dbName: ({ tableName }) => `${tableName}_b_faq`,
   interfaceName: 'FaqBlock',
+  admin: { images: blockThumbnail('faq', 'Questions in an expanding accordion') },
   labels: { singular: 'FAQ', plural: 'FAQs' },
   fields: [
     ...sectionHeadingFields(),

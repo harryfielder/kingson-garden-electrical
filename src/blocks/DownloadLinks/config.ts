@@ -2,12 +2,14 @@ import type { Block } from 'payload'
 
 import { appearanceField } from '@/fields/appearance'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /** Ungated list of useful documents — guides, certificates, spec sheets. */
 export const DownloadLinksBlock: Block = {
   slug: 'downloadLinks',
   dbName: ({ tableName }) => `${tableName}_b_dls`,
   interfaceName: 'DownloadLinksBlock',
+  admin: { images: blockThumbnail('downloadLinks', 'A list of files to download') },
   labels: { singular: 'Download Links', plural: 'Download Link Blocks' },
   fields: [
     ...sectionHeadingFields(),

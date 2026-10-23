@@ -4,6 +4,7 @@ import { appearanceField } from '@/fields/appearance'
 import { link } from '@/fields/link'
 import { linkGroup } from '@/fields/linkGroup'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /**
  * A card grid that is either hand-authored or pulled from a collection.
@@ -15,6 +16,7 @@ export const CardsBlock: Block = {
   slug: 'cards',
   dbName: ({ tableName }) => `${tableName}_b_cards`,
   interfaceName: 'CardsBlock',
+  admin: { images: blockThumbnail('cards', 'A row of cards, each with an image, title and summary') },
   labels: { singular: 'Cards', plural: 'Card Blocks' },
   fields: [
     ...sectionHeadingFields(),

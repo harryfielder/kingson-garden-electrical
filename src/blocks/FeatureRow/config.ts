@@ -3,12 +3,14 @@ import type { Block } from 'payload'
 import { appearanceField } from '@/fields/appearance'
 import { linkGroup } from '@/fields/linkGroup'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /** "Reasons to choose us" — a row of icon-led value propositions. */
 export const FeatureRowBlock: Block = {
   slug: 'featureRow',
   dbName: ({ tableName }) => `${tableName}_b_feats`,
   interfaceName: 'FeatureRowBlock',
+  admin: { images: blockThumbnail('featureRow', 'Columns of icon, title and short copy') },
   labels: { singular: 'Feature Row', plural: 'Feature Rows' },
   fields: [
     ...sectionHeadingFields(),

@@ -10,6 +10,7 @@ import {
 
 import { appearanceField } from '@/fields/appearance'
 import { link } from '@/fields/link'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 const columnFields: Field[] = [
   {
@@ -69,6 +70,7 @@ export const Content: Block = {
   slug: 'content',
   dbName: ({ tableName }) => `${tableName}_b_cont`,
   interfaceName: 'ContentBlock',
+  admin: { images: blockThumbnail('content', 'Rich text in one or more columns') },
   labels: { singular: 'Text Content', plural: 'Text Content Blocks' },
   fields: [
     {

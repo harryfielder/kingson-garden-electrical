@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '@/fields/linkGroup'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /**
  * Page opener. Supports a full-height cinematic treatment, a half-height
@@ -13,6 +14,7 @@ export const HeroBlock: Block = {
   slug: 'hero',
   dbName: ({ tableName }) => `${tableName}_b_hero`,
   interfaceName: 'HeroBlock',
+  admin: { images: blockThumbnail('hero', 'Full-width heading and buttons over an image') },
   labels: { singular: 'Hero', plural: 'Heroes' },
   fields: [
     {

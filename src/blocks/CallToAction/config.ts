@@ -2,11 +2,13 @@ import type { Block } from 'payload'
 
 import { appearanceField } from '@/fields/appearance'
 import { linkGroup } from '@/fields/linkGroup'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 export const CallToAction: Block = {
   slug: 'cta',
   dbName: ({ tableName }) => `${tableName}_b_cta`,
   interfaceName: 'CallToActionBlock',
+  admin: { images: blockThumbnail('cta', 'A coloured band with a heading and buttons') },
   labels: { singular: 'Call to Action', plural: 'Calls to Action' },
   fields: [
     {

@@ -8,6 +8,7 @@ import {
 
 import { appearanceField } from '@/fields/appearance'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /**
  * A lead magnet: the file is released only after an email address is captured.
@@ -20,6 +21,7 @@ export const GatedDownloadBlock: Block = {
   slug: 'gatedDownload',
   dbName: ({ tableName }) => `${tableName}_b_gated`,
   interfaceName: 'GatedDownloadBlock',
+  admin: { images: blockThumbnail('gatedDownload', 'A guide cover beside an email sign-up form') },
   labels: { singular: 'Gated Download', plural: 'Gated Downloads' },
   fields: [
     ...sectionHeadingFields({ required: true }),

@@ -10,12 +10,14 @@ import {
 import { appearanceField } from '@/fields/appearance'
 import { linkGroup } from '@/fields/linkGroup'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /** Paired text and media, with the media on either side. */
 export const TextMediaBlock: Block = {
   slug: 'textMedia',
   dbName: ({ tableName }) => `${tableName}_b_txtmed`,
   interfaceName: 'TextMediaBlock',
+  admin: { images: blockThumbnail('textMedia', 'Heading, copy and buttons beside an image') },
   labels: { singular: 'Text & Media', plural: 'Text & Media' },
   fields: [
     {

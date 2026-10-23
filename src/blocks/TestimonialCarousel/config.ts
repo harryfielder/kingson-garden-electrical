@@ -2,11 +2,13 @@ import type { Block } from 'payload'
 
 import { appearanceField } from '@/fields/appearance'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 export const TestimonialCarouselBlock: Block = {
   slug: 'testimonialCarousel',
   dbName: ({ tableName }) => `${tableName}_b_tstm`,
   interfaceName: 'TestimonialCarouselBlock',
+  admin: { images: blockThumbnail('testimonialCarousel', 'A customer quote with rating, in a carousel') },
   labels: { singular: 'Testimonial Carousel', plural: 'Testimonial Carousels' },
   fields: [
     ...sectionHeadingFields(),

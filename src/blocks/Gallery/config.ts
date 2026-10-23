@@ -2,12 +2,14 @@ import type { Block } from 'payload'
 
 import { appearanceField } from '@/fields/appearance'
 import { sectionHeadingFields } from '@/fields/sectionHeading'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /** Masonry image gallery with a lightbox. */
 export const GalleryBlock: Block = {
   slug: 'gallery',
   dbName: ({ tableName }) => `${tableName}_b_gal`,
   interfaceName: 'GalleryBlock',
+  admin: { images: blockThumbnail('gallery', 'A grid of images') },
   labels: { singular: 'Gallery', plural: 'Galleries' },
   fields: [
     ...sectionHeadingFields(),

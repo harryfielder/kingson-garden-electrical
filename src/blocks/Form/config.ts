@@ -8,6 +8,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { appearanceField } from '@/fields/appearance'
+import { blockThumbnail } from '@/blocks/shared/thumbnail'
 
 /**
  * Renders a form built in the Forms collection.
@@ -20,6 +21,7 @@ export const FormBlock: Block = {
   slug: 'formBlock',
   dbName: ({ tableName }) => `${tableName}_b_form`,
   interfaceName: 'FormBlock',
+  admin: { images: blockThumbnail('formBlock', 'A form with fields and a submit button') },
   labels: { singular: 'Form', plural: 'Form Blocks' },
   graphQL: { singularName: 'FormBlock' },
   fields: [
