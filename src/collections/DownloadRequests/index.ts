@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '@/access/authenticated'
+import { notificationField, notifyOnCreate } from '@/notifications'
 
 /**
  * Email addresses captured by the gated-download flow.
@@ -20,7 +21,7 @@ export const DownloadRequests: CollectionConfig<'download-requests'> = {
   },
   admin: {
     useAsTitle: 'email',
-    defaultColumns: ['email', 'download', 'marketingConsent', 'createdAt'],
+    defaultColumns: ['email', 'download', 'marketingConsent', 'notification.status', 'createdAt'],
     group: 'Submissions',
     description: 'Captured when a visitor unlocks a gated download.',
   },
@@ -45,6 +46,8 @@ export const DownloadRequests: CollectionConfig<'download-requests'> = {
       type: 'text',
       admin: { description: 'The page the request came from.' },
     },
+    notificationField,
   ],
+  hooks: { afterChange: [notifyOnCreate] },
   timestamps: true,
 }

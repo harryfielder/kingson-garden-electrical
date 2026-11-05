@@ -22,7 +22,8 @@ pnpm dev             # /admin — harry@umidigital.co.uk
 | Neon store | `kingson-garden-db`, connected to production + preview + development |
 | Blob store | `kingson-garden-media` (`store_WzcDKMcjFus4XoMC`), public access |
 | GitHub | `harryfielder/kingson-garden-electrical`, connected to the Vercel project |
-| Env in Vercel | `PAYLOAD_SECRET`, `CRON_SECRET`, `PREVIEW_SECRET` + the Neon/Blob vars |
+| Resend | `resend-email-cerise-pillow` (Marketplace, free plan, `eu-west-1`), domain `gardenelectrician.co.uk` verified |
+| Env in Vercel | `PAYLOAD_SECRET`, `CRON_SECRET`, `PREVIEW_SECRET`, `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN`, `EMAIL_TEST_RECIPIENT` (preview + dev only) + the Neon/Blob vars |
 
 `NEXT_PUBLIC_SERVER_URL` is deliberately **not** set in Vercel, so previews derive their
 own origin from `VERCEL_PROJECT_PRODUCTION_URL`. Set it once a custom domain exists.
@@ -41,9 +42,10 @@ own origin from `VERCEL_PROJECT_PRODUCTION_URL`. Set it once a custom domain exi
    (`docs/client-brief/staff-interview-questions.md`) says to get permission before
    naming customers. Flip `verified` only once that is confirmed. Harry was separately
    scraping Checkatrade reviews — those still need adding.
-3. **SMTP.** Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM_ADDRESS`.
-   Until then Payload logs emails to the console and no enquiry notifications send.
-   The adapter is already wired in `payload.config.ts` behind a `SMTP_HOST` check.
+3. ~~Email notifications~~ — done (see **Enquiry email** below). Still to do: one real
+   test into `info@kingsonelectrical.co.uk` after deploy, and decide whether to resend
+   the 2 submissions and 6 download requests received before notifications existed
+   (marked "Not sent" in the admin).
 4. **Replace the placeholder privacy policy** (`/privacy-policy`).
 5. **Google Search Console token** — Site Settings → Search & AI.
 6. **Real photography for the hero.** The client brief says the hero image "carries the
@@ -93,6 +95,26 @@ own origin from `VERCEL_PROJECT_PRODUCTION_URL`. Set it once a custom domain exi
   asset on a site that is mostly photography.
 - **Testimonials carry a `verified` flag** specifically to separate "safe for structured
   data" from "safe to display".
+
+## Enquiry email
+
+Form submissions and download requests email everyone in **Site Settings →
+Notifications** (`src/notifications/`). Per-form `emails` in the form builder still send
+too, so keep those for visitor auto-replies, not staff alerts.
+
+- **Sender:** `notifications@gardenelectrician.co.uk` via Resend. DKIM (`resend._domainkey`),
+  `send`/`rsend` CNAMEs (DNS only, not proxied) and DMARC (Cloudflare DMARC Management,
+  `p=none`) live in **Cloudflare**. Never send *from* `kingsonelectrical.co.uk`: that is
+  Microsoft 365 on StackDNS with `-all` SPF. Reply-To is the visitor.
+- **Only production mails Kingson.** Elsewhere the adapter redirects to
+  `EMAIL_TEST_RECIPIENT`, or logs to the console if it is unset.
+- **Every row records its outcome** in the sidebar: `sent` (Resend accepted it) becomes
+  `delivered` once the receiving server confirms. A failure never fails the submission.
+- **Cron** `/api/notifications/process` (every 10 min, `vercel.json`) retries
+  pending/failed rows up to 6 times within 3 days and confirms delivery with Resend.
+- **Test:** `npx tsx scripts/admin/test-notification.ts [formId]` sends through the
+  real hook, waits for delivery, and deletes the row.
+- Tighten DMARC to `p=quarantine` once a few weeks of Cloudflare reports are clean.
 
 ## Traps that already cost time — don't rediscover them
 

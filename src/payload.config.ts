@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { resendAdapter } from '@payloadcms/email-resend'
 import path from 'path'
 import { buildConfig, type PayloadRequest } from 'payload'
 import sharp from 'sharp'
@@ -31,25 +32,50 @@ const dirname = path.dirname(filename)
 const isMigrating = process.env.PAYLOAD_MIGRATING === 'true'
 
 /**
- * SMTP is optional: without it Payload logs emails to the console, which is
- * the right behaviour locally and in previews. Configuring it is what turns
- * form notifications into real mail.
+ * Mail sends through Resend (provisioned from the Vercel Marketplace, which
+ * sets `RESEND_API_KEY`), with plain SMTP kept as an alternative. Without
+ * either, Payload logs emails to the console.
+ *
+ * The sending domain must be the one verified in Resend — gardenelectrician.co.uk,
+ * whose DKIM/SPF/DMARC records live in Cloudflare. Never send *from* the
+ * client's Microsoft 365 domain: it publishes `-all` SPF and would reject us.
+ *
+ * Only production mails the client. Previews and local dev share the API key,
+ * so they either redirect everything to `EMAIL_TEST_RECIPIENT` or fall back
+ * to the console — a test submission must never land in Kingson's inbox.
  */
-const emailAdapter = process.env.SMTP_HOST
-  ? nodemailerAdapter({
-      defaultFromAddress: process.env.SMTP_FROM_ADDRESS || 'noreply@kingsongardenelectrical.co.uk',
-      defaultFromName: process.env.SMTP_FROM_NAME || 'Kingson Garden Electrical',
-      transportOptions: {
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT || 587),
-        secure: Number(process.env.SMTP_PORT) === 465,
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      },
-    })
-  : undefined
+const emailFromAddress =
+  process.env.EMAIL_FROM_ADDRESS ||
+  `notifications@${process.env.RESEND_EMAIL_DOMAIN || 'gardenelectrician.co.uk'}`
+const emailFromName = process.env.EMAIL_FROM_NAME || 'Kingson Garden Electrical website'
+const isProduction = process.env.VERCEL_ENV === 'production'
+const testRecipient = process.env.EMAIL_TEST_RECIPIENT
+const canSendMail = isProduction || Boolean(testRecipient)
+
+const emailAdapter = !canSendMail
+  ? undefined
+  : process.env.RESEND_API_KEY
+    ? resendAdapter({
+        apiKey: process.env.RESEND_API_KEY,
+        defaultFromAddress: emailFromAddress,
+        defaultFromName: emailFromName,
+        ...(isProduction ? {} : { overrideRecipientAddress: testRecipient }),
+      })
+    : process.env.SMTP_HOST && isProduction
+      ? nodemailerAdapter({
+          defaultFromAddress: emailFromAddress,
+          defaultFromName: emailFromName,
+          transportOptions: {
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT || 587),
+            secure: Number(process.env.SMTP_PORT) === 465,
+            auth: {
+              user: process.env.SMTP_USER,
+              pass: process.env.SMTP_PASS,
+            },
+          },
+        })
+      : undefined
 
 export default buildConfig({
   admin: {

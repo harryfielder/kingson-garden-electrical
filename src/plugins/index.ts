@@ -10,6 +10,7 @@ import type { Plugin } from 'payload'
 
 import { StepBreak } from '@/fields/formFields/stepBreak'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
+import { notificationField, notifyOnCreate } from '@/notifications'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { searchFields } from '@/search/fieldOverrides'
 import { getDocumentPath } from '@/utilities/routing'
@@ -100,7 +101,17 @@ export const plugins: Plugin[] = [
             : field,
         ),
     },
-    formSubmissionOverrides: { admin: { group: 'Submissions' } },
+    // Notifications go to Site Settings → Notifications for every form, rather
+    // than relying on each form's own `emails` list being filled in. Per-form
+    // emails still send, so use those for visitor auto-replies, not alerts.
+    formSubmissionOverrides: {
+      admin: {
+        group: 'Submissions',
+        defaultColumns: ['form', 'notification.status', 'createdAt'],
+      },
+      fields: ({ defaultFields }) => [...defaultFields, notificationField],
+      hooks: { afterChange: [notifyOnCreate] },
+    },
   }),
 
   searchPlugin({

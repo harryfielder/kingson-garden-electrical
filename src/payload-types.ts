@@ -2027,6 +2027,17 @@ export interface DownloadRequest {
    * The page the request came from.
    */
   sourceUrl?: string | null;
+  /**
+   * Retried automatically every 10 minutes for up to an hour if it fails.
+   */
+  notification?: {
+    status?: ('pending' | 'sent' | 'delivered' | 'failed' | 'skipped') | null;
+    attempts?: number | null;
+    lastAttemptAt?: string | null;
+    recipients?: string | null;
+    messageId?: string | null;
+    error?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -2109,6 +2120,17 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Retried automatically every 10 minutes for up to an hour if it fails.
+   */
+  notification?: {
+    status?: ('pending' | 'sent' | 'delivered' | 'failed' | 'skipped') | null;
+    attempts?: number | null;
+    lastAttemptAt?: string | null;
+    recipients?: string | null;
+    messageId?: string | null;
+    error?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -3194,6 +3216,16 @@ export interface DownloadRequestsSelect<T extends boolean = true> {
   download?: T;
   marketingConsent?: T;
   sourceUrl?: T;
+  notification?:
+    | T
+    | {
+        status?: T;
+        attempts?: T;
+        lastAttemptAt?: T;
+        recipients?: T;
+        messageId?: T;
+        error?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -3508,6 +3540,16 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
         field?: T;
         value?: T;
         id?: T;
+      };
+  notification?:
+    | T
+    | {
+        status?: T;
+        attempts?: T;
+        lastAttemptAt?: T;
+        recipients?: T;
+        messageId?: T;
+        error?: T;
       };
   updatedAt?: T;
   createdAt?: T;
